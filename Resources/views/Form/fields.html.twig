@@ -1,0 +1,33 @@
+{% block jb_file_ajax_row %}
+    <div class="file-upload">
+        {{- form_label(form) -}}
+        <div class="alert alert-danger result_error" style="display: none;"></div>
+        {{- form_errors(form) -}}
+        {{- form_widget(form) -}}
+    </div>
+{% endblock %}
+
+{% block jb_file_ajax_widget %}
+    <span class="fileinput-button">
+        <span>Import a file</span>
+        <input class="jbfileupload" type="file" name="{{ id }}_file" data-url="{{ oneup_uploader_endpoint(endpoint) }}" data-id="{{ id }}" />
+    </span>
+    <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% if display_link %}
+        {% if file_history is not null %}
+            <a class="result_preview" href="{{ file_history_url }}"><span class="result_name">{{ file_history.originalName }}</span></a>
+        {% else %}
+            <a class="result_preview" href=""><span class="result_name"></span></a>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block jb_image_ajax_widget %}
+    {% if file_history is not null %}
+        <img class="result_preview" src="{{ file_history_url }}" width="{{ img_width }}" />
+    {% else %}
+        <img class="result_preview" src="{{ asset('bundles/blockbookstercore/img/default-image.png') }}" width="{{ img_width }}" />
+    {% endif %}
+
+    {{ block('file_ajax_widget') }}
+{% endblock %}

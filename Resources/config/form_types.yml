@@ -1,0 +1,19 @@
+parameters:
+    jb_fileuploader.form.type.file_ajax.class: Jb\Bundle\FileUploaderBundle\Form\Type\FileAjaxType
+    jb_fileuploader.form.type.image_ajax.class: Jb\Bundle\FileUploaderBundle\Form\Type\ImageAjaxType
+
+services:
+    jb_fileuploader.form.type.file_ajax:
+        class: %jb_fileuploader.form.type.file_ajax.class%
+        scope: request
+        arguments:
+            - @jb_fileuploader.file_history.manager
+        tags:
+            - { name: form.type, alias: jb_file_ajax }
+
+    jb_fileuploader.form.type.image_ajax:
+        class: %jb_fileuploader.form.type.image_ajax.class%
+        scope: request
+        parent: jb_fileuploader.form.type.file_ajax
+        tags:
+            - { name: form.type, alias: jb_image_ajax }

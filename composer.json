@@ -1,0 +1,20 @@
+{
+    "name": "jbouzekri/file-uploader-bundle",
+    "type": "symfony-bundle",
+    "description": "Aggregate some bundles and libraries to provide easy ajax file upload integration",
+    "keywords": ["Symfony", "upload", "ajax", "jcrop", "fileupload"],
+    "homepage": "https://github.com/jbouzekri/FileUploaderBundle",
+    "license": "MIT",
+    "require": {
+        "oneup/uploader-bundle": "~1.3",
+        "knplabs/knp-gaufrette-bundle": "*@dev",
+        "liip/imagine-bundle": "~1.1.0"
+    },
+    "suggest": {
+        "willdurand/js-translation-bundle": "Provide js translation in ajax"
+    },
+    "autoload": {
+        "psr-0": { "Jb\\Bundle\\FileUploaderBundle": "" }
+    },
+    "target-dir": "Jb/Bundle/FileUploaderBundle"
+}

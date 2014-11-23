@@ -1,0 +1,20 @@
+parameters:
+    jb_fileuploader.file_ajax.upload_listener.class: Jb\Bundle\FileUploaderBundle\EventListener\Upload\UploadListener
+    jb_fileuploader.file_history.manager.class: Jb\Bundle\FileUploaderBundle\Service\FileHistoryManager
+
+services:
+    jb_fileuploader.file_ajax.upload_listener:
+        class: %jb_fileuploader.file_ajax.upload_listener.class%
+        scope: request
+        arguments:
+            - @jb_fileuploader.file_history.manager
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
+
+    jb_fileuploader.file_history.manager:
+        class: %jb_fileuploader.file_history.manager.class%
+        scope: request
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @security.context
+            - @jb_fileuploader.resolver_chain
