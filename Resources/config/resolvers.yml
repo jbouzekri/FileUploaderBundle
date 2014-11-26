@@ -21,6 +21,6 @@ services:
         scope: request
         arguments:
             - @templating.helper.assets
-            - %jb_fileuploader.assets_directory%
+            - @jb_fileuploader.endpoint_configuration
         tags:
             - { name: jb_fileuploader.resolver, alias: assets }

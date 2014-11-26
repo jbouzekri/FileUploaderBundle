@@ -47,7 +47,7 @@ class UploadListener
         $response = $event->getResponse();
         $response['filename'] = $fileHistory->getFileName();
         $response['originalname'] = $fileHistory->getOriginalName();
-        $response['filepath'] = $this->fileHistoryManager->getUrl($fileHistory);
+        $response['filepath'] = $this->fileHistoryManager->getUrl($fileHistory, $event->getType());
     }
 
     /**

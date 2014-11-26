@@ -14,6 +14,7 @@ use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\SecurityContext;
 use Jb\Bundle\FileUploaderBundle\Service\ResolverChain;
+use Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration;
 
 /**
  * FileHistoryManager
@@ -38,17 +39,28 @@ class FileHistoryManager implements FileHistoryManagerInterface
     protected $resolvers;
 
     /**
+     * @var \Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration
+     */
+    protected $configuration;
+
+    /**
      * Constructor
      *
      * @param ObjectManager $em
      * @param SecurityContext $securityContext
      * @param \Jb\Bundle\FileUploaderBundle\Service\ResolverChain $imagine
+     * @param \Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration $configuration
      */
-    public function __construct(ObjectManager $em, SecurityContext $securityContext, ResolverChain $resolvers)
-    {
+    public function __construct(
+        ObjectManager $em,
+        SecurityContext $securityContext,
+        ResolverChain $resolvers,
+        EndpointConfiguration $configuration
+    ) {
         $this->em = $em;
         $this->securityContext = $securityContext;
         $this->resolvers = $resolvers;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -96,8 +108,8 @@ class FileHistoryManager implements FileHistoryManagerInterface
     public function getUrl(FileHistory $fileHistory)
     {
         // Add file path to response
-        $resolver = $this->resolvers->getResolver('assets');
-        return $resolver->getUrl($fileHistory->getFilename());
+        $resolver = $this->resolvers->getResolver($this->configuration->getValue($fileHistory->getType(), 'resolver'));
+        return $resolver->getUrl($fileHistory->getFilename(), $fileHistory->getType());
     }
 
     /**

@@ -47,6 +47,6 @@ class JbFileUploaderExtension extends Extension
      */
     protected function loadConfiguration(ContainerBuilder $container, array $config)
     {
-        $container->setParameter('jb_fileuploader.assets_directory', $config['assets_directory']);
+        $container->setParameter('jb_fileuploader.endpoints', $config);
     }
 }

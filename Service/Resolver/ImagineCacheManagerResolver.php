@@ -37,7 +37,7 @@ class ImagineCacheManagerResolver implements ResolverInterface
     /**
      * {@inheritdoc}
      */
-    public function getUrl($key)
+    public function getUrl($key, $endpoint)
     {
         return $this->imagine->getBrowserPath($key, 'original');
     }

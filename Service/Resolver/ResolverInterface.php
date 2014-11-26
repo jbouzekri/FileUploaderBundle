@@ -21,8 +21,9 @@ interface ResolverInterface
      * Get the url
      *
      * @param string $key
+     * @param string $endpoint
      *
      * @return string
      */
-    public function getUrl($key);
+    public function getUrl($key, $endpoint);
 }

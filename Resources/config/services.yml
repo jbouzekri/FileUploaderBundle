@@ -1,6 +1,7 @@
 parameters:
     jb_fileuploader.file_ajax.upload_listener.class: Jb\Bundle\FileUploaderBundle\EventListener\Upload\UploadListener
     jb_fileuploader.file_history.manager.class: Jb\Bundle\FileUploaderBundle\Service\FileHistoryManager
+    jb_fileuploader.endpoint_configuration.class: Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration
 
 services:
     jb_fileuploader.file_ajax.upload_listener:
@@ -18,3 +19,9 @@ services:
             - @doctrine.orm.entity_manager
             - @security.context
             - @jb_fileuploader.resolver_chain
+            - @jb_fileuploader.endpoint_configuration
+
+    jb_fileuploader.endpoint_configuration:
+        class: %jb_fileuploader.endpoint_configuration.class%
+        arguments:
+            - %jb_fileuploader.endpoints%
