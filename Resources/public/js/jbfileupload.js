@@ -1,6 +1,14 @@
 (function ( $ ) {
     "use strict";
 
+    function translateMessage(msg) {
+        if (typeof Translator != "undefined") {
+            return Translator.trans(msg);
+        }
+
+        return msg;
+    }
+
     var fileuploadFunction = {
         done: function (e, data) {
             var parentTag = $(this).parents('.file-upload');
@@ -9,7 +17,7 @@
 
             if (typeof data.result.files != "undefined" && typeof data.result.files[0] != "undefined" && typeof data.result.files[0].error != "undefined") {
                 parentTag.find('.result_error').show();
-                parentTag.find('.result_error').text(Translator.trans(data.result.files[0].error));
+                parentTag.find('.result_error').text(translateMessage(data.result.files[0].error));
             }
 
             parentTag.find('.result_name').text(data.result.originalname);

@@ -1,6 +1,12 @@
 parameters:
     jb_fileuploader.validator_chain.class: Jb\Bundle\FileUploaderBundle\Service\ValidatorChain
+    jb_fileupload.image.validator.class: Jb\Bundle\FileUploaderBundle\Service\Validator\ImageValidator
 
 services:
     jb_fileuploader.validator_chain:
         class: "%jb_fileuploader.validator_chain.class%"
+
+    jb_fileupload.image.validator:
+        class: "%jb_fileupload.image.validator.class%"
+        tags:
+            - { name: jb_fileuploader.validator, alias: Image }

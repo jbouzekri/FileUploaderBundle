@@ -11,7 +11,7 @@
 namespace Jb\Bundle\FileUploaderBundle\Service;
 
 use Jb\Bundle\FileUploaderBundle\Exception\JbFileUploaderException;
-use Jb\Bundle\FileUploaderBundle\Service\Validator\ValidatorInterface;
+use Jb\Bundle\FileUploaderBundle\Service\Validator\AbstractValidator;
 
 /**
  * ValidatorChain
@@ -36,9 +36,9 @@ class ValidatorChain
     /**
      * Add a validator
      *
-     * @param \Jb\Bundle\FileUploaderBundle\Service\Validator\ValidatorInterface $validator
+     * @param \Jb\Bundle\FileUploaderBundle\Service\Validator\AbstractValidator $validator
      */
-    public function addValidator(ValidatorInterface $validator, $alias)
+    public function addValidator(AbstractValidator $validator, $alias)
     {
         $this->validators[$alias] = $validator;
     }
@@ -48,7 +48,7 @@ class ValidatorChain
      *
      * @param string $alias
      *
-     * @return \Jb\Bundle\FileUploaderBundle\Service\Validator\ValidatorInterface
+     * @return \Jb\Bundle\FileUploaderBundle\Service\Validator\AbstractValidator
      *
      * @throws \Jb\Bundle\FileUploaderBundle\Exception\JbFileUploaderException
      */

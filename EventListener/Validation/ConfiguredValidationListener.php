@@ -73,7 +73,7 @@ class ConfiguredValidationListener
 
         foreach ($validationConfiguration as $validationType => $config) {
             $validator = $this->validators->getValidator($validationType);
-            $validator->validate($validator, $config);
+            $validator->applyValidator($event->getFile(), $config);
         }
     }
 }
