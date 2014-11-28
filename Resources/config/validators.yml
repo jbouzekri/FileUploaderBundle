@@ -1,0 +1,6 @@
+parameters:
+    jb_fileuploader.validator_chain.class: Jb\Bundle\FileUploaderBundle\Service\ValidatorChain
+
+services:
+    jb_fileuploader.validator_chain:
+        class: "%jb_fileuploader.validator_chain.class%"

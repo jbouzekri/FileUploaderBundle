@@ -1,5 +1,6 @@
 parameters:
     jb_fileuploader.file_ajax.upload_listener.class: Jb\Bundle\FileUploaderBundle\EventListener\Upload\UploadListener
+    jb_fileuploader.file_ajax.validation_listener.class: Jb\Bundle\FileUploaderBundle\EventListener\Validation\ConfiguredValidationListener
     jb_fileuploader.file_history.manager.class: Jb\Bundle\FileUploaderBundle\Service\FileHistoryManager
     jb_fileuploader.endpoint_configuration.class: Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration
 
@@ -11,6 +12,14 @@ services:
             - @jb_fileuploader.file_history.manager
         tags:
             - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
+
+    jb_fileuploader.file_ajax.validation_listener:
+        class: %jb_fileuploader.file_ajax.validation_listener.class%
+        arguments:
+            - @jb_fileuploader.validator_chain
+            - @jb_fileuploader.endpoint_configuration
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.validation, method: onValidate }
 
     jb_fileuploader.file_history.manager:
         class: %jb_fileuploader.file_history.manager.class%

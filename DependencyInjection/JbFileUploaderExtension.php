@@ -37,6 +37,9 @@ class JbFileUploaderExtension extends Extension
         $loader->load('form_types.yml');
         $loader->load('resolvers.yml');
         $loader->load('services.yml');
+        $loader->load('validators.yml');
+
+        var_dump($container->findTaggedServiceIds('resolver'));
     }
 
     /**
@@ -47,6 +50,7 @@ class JbFileUploaderExtension extends Extension
      */
     protected function loadConfiguration(ContainerBuilder $container, array $config)
     {
+        var_dump($config);
         $container->setParameter('jb_fileuploader.endpoints', $config);
     }
 }

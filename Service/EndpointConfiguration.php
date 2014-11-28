@@ -43,8 +43,11 @@ class EndpointConfiguration
      */
     public function getValue($endpoint, $key)
     {
-        if (!empty($this->endpoints[$endpoint]) && empty($this->endpoints[$endpoint][$key])) {
-            return $this->endpoints[$endpoint][$key];
+        if (
+            !empty($this->endpoints['endpoints'][$endpoint])
+            && !empty($this->endpoints['endpoints'][$endpoint][$key])
+        ) {
+            return $this->endpoints['endpoints'][$endpoint][$key];
         }
 
         if (!empty($this->endpoints[$key])) {

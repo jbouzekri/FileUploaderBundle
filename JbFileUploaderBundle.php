@@ -28,5 +28,6 @@ class JbFileUploaderBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new DependencyInjection\Compiler\ResolverCompilerPass());
+        $container->addCompilerPass(new DependencyInjection\Compiler\ValidatorCompilerPass());
     }
 }
