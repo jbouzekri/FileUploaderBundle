@@ -27,8 +27,14 @@ class ImageAjaxType extends AbstractType
     {
         // Endpoint mandatory for fileupload bundle
         $resolver->setRequired(array('img_width'));
+        $resolver->setOptional(array('default_image'));
 
-        $resolver->replaceDefaults(array('img_width' => 100));
+        $resolver->replaceDefaults(
+            array(
+                'img_width' => 100,
+                'default_image' => 'bundles/jbfileuploader/img/default.png'
+            )
+        );
     }
 
     /**
@@ -38,6 +44,7 @@ class ImageAjaxType extends AbstractType
     {
         $view->vars['display_link'] = false;
         $view->vars['img_width'] = $options['img_width'];
+        $view->vars['default_image'] = $options['default_image'];
     }
 
     /**

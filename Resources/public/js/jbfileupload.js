@@ -11,7 +11,7 @@
 
     var fileuploadFunction = {
         done: function (e, data) {
-            var parentTag = $(this).parents('.file-upload');
+            var parentTag = $('#'+$(this).data('row-id'));
 
             parentTag.find('.result_error').hide();
 
@@ -32,7 +32,7 @@
         },
 
         error: function (e, data) {
-            var parentTag = $('#'+$(this).attr('id')).parents('.file-upload');
+            var parentTag = $('#'+$(this).data('row-id'));
 
             if (typeof e.responseJSON[0].message != "undefined") {
                 parentTag.find('.result_error').show();
