@@ -1,3 +1,7 @@
-.jbfileinput-button input {
+.fileinput-button input {
     font-size: 12px;
+}
+
+.jb_crop_upload {
+    display: inline-block;
 }

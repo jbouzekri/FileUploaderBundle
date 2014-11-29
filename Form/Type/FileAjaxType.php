@@ -62,7 +62,7 @@ class FileAjaxType extends AbstractType
             $fileHistoryUrl = $this->fileHistoryManager->getUrl($fileHistory);
         }
 
-        $className = 'result_filename';
+        $className = 'jb_result_filename';
         if (isset($view->vars['attr']['class'])) {
             $view->vars['attr']['class'] .= ' ' . $className;
         } else {
@@ -73,6 +73,7 @@ class FileAjaxType extends AbstractType
         $view->vars['file_history_url'] = $fileHistoryUrl;
         $view->vars['endpoint'] = $options['endpoint'];
         $view->vars['display_link'] = $options['display_link'];
+        $view->vars['use_crop'] = false;
     }
 
     /**
