@@ -1,15 +1,6 @@
 {#
 The id on the row and the attribute data-row-id are important. They are used in the js code.
-Same thing for the following classes :
-- jb_result_error
-- jb_result_name
-- jb_result_filename (dynamically added to the hidden field cf FileAjaxType)
-- jb_result_preview
-- jb_crop_upload
-- jb_crop_tool
-- jb_crop_img
-- jb_crop_confirm
-- jb_crop_reset
+Same thing for all classes starting with jb_
 #}
 
 {% block jb_file_ajax_row %}
@@ -60,8 +51,13 @@ Same thing for the following classes :
         <img class="jb_crop_img" src="" {{ block('jb_crop_attributes') }} style="max-width: {{ max_width }}px; max-height: {{ max_height }}px;"/>
         <button class="jb_crop_confirm">{{ confirm_button_label|trans }}</button>
         {% if reset_button %}
-            <button class="jb_crop_reset">{{ reset_button_label|trans }}</button>
+            <button type="submit" class="jb_crop_reset">{{ reset_button_label|trans }}</button>
         {% endif %}
+        <input type="hidden" class="jb_crop_field jb_crop_x" name="jb_fileuploader_crop[x]" value="" />
+        <input type="hidden" class="jb_crop_field jb_crop_y" name="jb_fileuploader_crop[y]" value="" />
+        <input type="hidden" class="jb_crop_field jb_crop_width" name="jb_fileuploader_crop[width]" value="" />
+        <input type="hidden" class="jb_crop_field jb_crop_height" name="jb_fileuploader_crop[height]" value="" />
+        <input type="hidden" class="jb_crop_field jb_crop_filename" name="jb_fileuploader_crop[filename]" value="" />
     </div>
 {% endblock %}
 
@@ -69,4 +65,5 @@ Same thing for the following classes :
     {% for key, option in crop_options %}
         data-{{ key }}="{{ option }}"
     {% endfor %}
+    data-url="{{ jb_fileuploader_crop_endpoint(endpoint) }}"
 {%- endblock %}

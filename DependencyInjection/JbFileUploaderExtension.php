@@ -49,5 +49,6 @@ class JbFileUploaderExtension extends Extension
     protected function loadConfiguration(ContainerBuilder $container, array $config)
     {
         $container->setParameter('jb_fileuploader.endpoints', $config);
+        $container->setParameter('jb_fileuploader.crop_route', $config['crop_route']);
     }
 }

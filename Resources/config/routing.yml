@@ -1,0 +1,3 @@
+jb_image_crop_endpoint:
+    path:      /_jbfileuploader/crop/{endpoint}
+    defaults:  { _controller: JbFileUploaderBundle:Crop:filter }

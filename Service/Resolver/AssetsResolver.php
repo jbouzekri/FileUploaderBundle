@@ -47,6 +47,8 @@ class AssetsResolver implements ResolverInterface
      */
     public function getUrl($key, $endpoint)
     {
-        return $this->helper->getUrl($this->configuration->getValue($endpoint, 'assets_directory') . '/' . $key);
+        return $this->helper->getUrl(
+            trim($this->configuration->getValue($endpoint, 'assets_directory'),'/') . '/' . $key
+        );
     }
 }

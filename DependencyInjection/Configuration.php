@@ -34,6 +34,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('assets_directory')->defaultValue('uploads')->end()
                 ->scalarNode('resolver')->defaultValue('assets')->end()
+                ->scalarNode('crop_route')->defaultValue('jb_image_crop_endpoint')->end()
                 ->arrayNode('endpoints')
                     ->defaultValue(array())
                     ->prototype('array')

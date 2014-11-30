@@ -3,6 +3,7 @@ parameters:
     jb_fileuploader.file_ajax.validation_listener.class: Jb\Bundle\FileUploaderBundle\EventListener\Validation\ConfiguredValidationListener
     jb_fileuploader.file_history.manager.class: Jb\Bundle\FileUploaderBundle\Service\FileHistoryManager
     jb_fileuploader.endpoint_configuration.class: Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration
+    jb_fileuploader.twig_extension.crop.class: Jb\Bundle\FileUploaderBundle\Twig\CropExtension
 
 services:
     jb_fileuploader.file_ajax.upload_listener:
@@ -34,3 +35,11 @@ services:
         class: %jb_fileuploader.endpoint_configuration.class%
         arguments:
             - %jb_fileuploader.endpoints%
+
+    jb_fileuploader.twig_extension.crop:
+        class: %jb_fileuploader.twig_extension.crop.class%
+        arguments:
+            - @router
+            - %jb_fileuploader.crop_route%
+        tags:
+            - { name: twig.extension }
