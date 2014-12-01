@@ -26,7 +26,7 @@
             * @returns {string}
             */
            function translateMessage(msg) {
-               if (typeof Translator != "undefined") {
+               if (typeof Translator !== "undefined") {
                    return Translator.trans(msg);
                }
 
@@ -79,18 +79,24 @@
                    currentHeight = this.clientHeight;
                    currentWidth = this.clientWidth;
                    $cropImg.Jcrop(cropConfig);
+
+                   // To remove multiple bind event on the same crop img element
+                   $cropImg.unbind('load');
                });
            }
 
            /**
             * Process an ajax file upload success
             *
+            * @param {object} e
+            * @param {object} data
+            *
             * @type {fileuploadFunction}
             */
             function fileUploadDone(e, data) {
                 // Manage error
                 $resultError.hide();
-                if (typeof data.result.files != "undefined" && typeof data.result.files[0] != "undefined" && typeof data.result.files[0].error != "undefined") {
+                if (typeof data.result.files !== "undefined" && typeof data.result.files[0] !== "undefined" && typeof data.result.files[0].error !== "undefined") {
                     $resultError.show();
                     $resultError.text(translateMessage(data.result.files[0].error));
                     return;
@@ -107,7 +113,7 @@
                 $parentTag.find('.jb_result_filename').val(data.result.filename);
 
                 var $previewTag = $parentTag.find('.jb_result_preview');
-                if ($previewTag.prop("tagName") == "IMG") {
+                if ($previewTag.prop("tagName") === "IMG") {
                     $previewTag.attr('src', data.result.filepath);
                 } else {
                     $previewTag.attr('href', data.result.filepath);
@@ -123,7 +129,7 @@
              * @returns {undefined}
              */
             function fileUploadError(e, data) {
-                if (typeof e.responseJSON[0].message != "undefined") {
+                if (typeof e.responseJSON[0].message !== "undefined") {
                     $resultError.show();
                     $resultError.text(e.responseJSON[0].message);
                 }
@@ -149,8 +155,14 @@
             $parentTag.find('.jb_crop_confirm').click(function(event){
                 event.preventDefault();
                 $.post($cropImg.data('url'), $cropTool.find('.jb_crop_field').serialize(), function(data) {
+                    $resultError.hide();
                     console.log(data);
-                }, 'json');
+                }, 'json').fail(function(data) {
+                    if (typeof data.responseJSON !== "undefined" && typeof data.responseJSON.error !== "undefined") {
+                        $resultError.show();
+                        $resultError.text(translateMessage(data.responseJSON.error));
+                    }
+                });
             });
 
             // Load jquery file upload

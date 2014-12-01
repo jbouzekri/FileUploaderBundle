@@ -4,6 +4,7 @@ parameters:
     jb_fileuploader.file_history.manager.class: Jb\Bundle\FileUploaderBundle\Service\FileHistoryManager
     jb_fileuploader.endpoint_configuration.class: Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration
     jb_fileuploader.twig_extension.crop.class: Jb\Bundle\FileUploaderBundle\Twig\CropExtension
+    jb_fileuploader.croper.class: Jb\Bundle\FileUploaderBundle\Service\Croper
 
 services:
     jb_fileuploader.file_ajax.upload_listener:
@@ -43,3 +44,10 @@ services:
             - %jb_fileuploader.crop_route%
         tags:
             - { name: twig.extension }
+
+    jb_fileuploader.croper:
+        class: "%jb_fileuploader.croper.class%"
+        arguments:
+            - @liip_imagine.data.manager
+            - @liip_imagine.filter.manager
+            - @knp_gaufrette.filesystem_map

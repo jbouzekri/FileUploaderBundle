@@ -14,6 +14,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\Range;
 
 /**
  * CropType
@@ -29,16 +30,16 @@ class CropType extends AbstractType
 
         $builder
             ->add('x', 'integer', array(
-                'constraints' => array(new NotBlank())
+                'constraints' => array(new NotBlank(), new Range(array('min' => 0)))
             ))
             ->add('y', 'integer', array(
-                'constraints' => array(new NotBlank())
+                'constraints' => array(new NotBlank(), new Range(array('min' => 0)))
             ))
             ->add('width', 'integer', array(
-                'constraints' => array(new NotBlank())
+                'constraints' => array(new NotBlank(), new Range(array('min' => 0)))
             ))
             ->add('height', 'integer', array(
-                'constraints' => array(new NotBlank())
+                'constraints' => array(new NotBlank(), new Range(array('min' => 0)))
             ))
             ->add('filename', 'text', array(
                 'constraints' => array(new NotBlank())
