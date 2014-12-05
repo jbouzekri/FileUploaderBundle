@@ -12,14 +12,30 @@ namespace Jb\Bundle\FileUploaderBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 /**
  * JbFileUploaderBundle configuration structure.
  *
  * @author Jonathan Bouzekri <jonathan.bouzekri@gmail.com>
  */
-class Configuration implements ConfigurationInterface
+class MainConfiguration implements ConfigurationInterface
 {
+    /**
+     * @var array
+     */
+    protected $factories;
+
+    /**
+     * Constructor
+     *
+     * @param array $factories
+     */
+    public function __construct(array $factories)
+    {
+        $this->factories = $factories;
+    }
+
     /**
      * Generates the configuration tree builder.
      *
@@ -30,17 +46,17 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('jb_fileuploader');
 
+        $this->addResolversSection($rootNode, $this->factories);
+
         $rootNode
             ->children()
-                ->scalarNode('assets_directory')->defaultValue('uploads')->end()
-                ->scalarNode('resolver')->defaultValue('assets')->end()
+                ->scalarNode('resolver')->end()
                 ->scalarNode('crop_route')->defaultValue('jb_image_crop_endpoint')->end()
                 ->arrayNode('endpoints')
                     ->defaultValue(array())
                     ->prototype('array')
                         ->children()
                             ->scalarNode('resolver')->end()
-                            ->scalarNode('assets_directory')->end()
                             ->arrayNode('validators')
                                 ->defaultValue(array())
                                 ->prototype('variable')
@@ -84,5 +100,30 @@ class Configuration implements ConfigurationInterface
             ->end();
 
         return $treeBuilder;
+    }
+
+    /**
+     * Add resolvers section
+     *
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
+     * @param array $factories
+     */
+    protected function addResolversSection(ArrayNodeDefinition $node, array $factories)
+    {
+        $resolverNodeBuilder = $node
+            ->fixXmlConfig('resolver')
+            ->children()
+                ->arrayNode('resolvers')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                    ->performNoDeepMerging()
+                    ->children()
+        ;
+
+        foreach ($factories as $name => $factory) {
+            $factoryNode = $resolverNodeBuilder->arrayNode($name)->canBeUnset();
+
+            $factory->addConfiguration($factoryNode);
+        }
     }
 }

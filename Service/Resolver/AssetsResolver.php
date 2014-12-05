@@ -26,29 +26,29 @@ class AssetsResolver implements ResolverInterface
     protected $helper;
 
     /**
-     * @var \Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration
+     * @var string
      */
-    protected $configuration;
+    protected $directory;
 
     /**
      * Constructor
      *
      * @param CoreAssetsHelper $helper
-     * @param EndpointConfiguration $configuration
+     * @param string $directory
      */
-    public function __construct(CoreAssetsHelper $helper, EndpointConfiguration $configuration)
+    public function __construct(CoreAssetsHelper $helper, $directory)
     {
         $this->helper = $helper;
-        $this->configuration = $configuration;
+        $this->directory = $directory;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getUrl($key, $endpoint)
+    public function getUrl($key)
     {
         return $this->helper->getUrl(
-            trim($this->configuration->getValue($endpoint, 'assets_directory'),'/') . '/' . $key
+            trim($this->directory, '/') . '/' . $key
         );
     }
 }
