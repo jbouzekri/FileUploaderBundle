@@ -45,7 +45,7 @@ class CropController extends \Symfony\Bundle\FrameworkBundle\Controller\Controll
 
         // Else process crop
         try {
-            $url = $this->get('jb_fileuploader.croper')->crop($form->getData());
+            $url = $this->get('jb_fileuploader.croper')->crop($endpoint, $form->getData());
             return new JsonResponse(
                 array(
                     'url' => $url

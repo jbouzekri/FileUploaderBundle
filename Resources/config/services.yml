@@ -47,7 +47,10 @@ services:
 
     jb_fileuploader.croper:
         class: "%jb_fileuploader.croper.class%"
+        scope: request
         arguments:
             - @liip_imagine.data.manager
             - @liip_imagine.filter.manager
             - @knp_gaufrette.filesystem_map
+            - @jb_fileuploader.resolver_chain
+            - @jb_fileuploader.endpoint_configuration

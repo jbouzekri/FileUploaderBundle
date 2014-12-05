@@ -50,13 +50,15 @@ class MainConfiguration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('resolver')->end()
+                ->scalarNode('upload_resolver')->end()
+                ->scalarNode('croped_resolver')->end()
                 ->scalarNode('crop_route')->defaultValue('jb_image_crop_endpoint')->end()
                 ->arrayNode('endpoints')
                     ->defaultValue(array())
                     ->prototype('array')
                         ->children()
-                            ->scalarNode('resolver')->end()
+                            ->scalarNode('upload_resolver')->end()
+                            ->scalarNode('croped_resolver')->end()
                             ->append($this->getValidators('upload_validators'))
                             ->append($this->getValidators('crop_validators'))
                         ->end()
