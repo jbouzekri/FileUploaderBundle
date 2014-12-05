@@ -69,7 +69,7 @@ class ConfiguredValidationListener
      */
     protected function validate(ValidationEvent $event)
     {
-        $validationConfiguration = $this->configuration->getValue($event->getType(), 'validators');
+        $validationConfiguration = $this->configuration->getValue($event->getType(), 'upload_validators');
 
         foreach ($validationConfiguration as $validationType => $config) {
             $validator = $this->validators->getValidator($validationType);

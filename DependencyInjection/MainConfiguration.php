@@ -57,43 +57,8 @@ class MainConfiguration implements ConfigurationInterface
                     ->prototype('array')
                         ->children()
                             ->scalarNode('resolver')->end()
-                            ->arrayNode('validators')
-                                ->defaultValue(array())
-                                ->prototype('variable')
-                                ->end()
-                                ->beforeNormalization()
-                                    ->always()
-                                    ->then(function($values) {
-                                        // Normalize null as array
-                                        foreach ($values as $key => $value) {
-                                            if ($value === NULL) {
-                                                $values[$key] = array();
-                                            }
-                                        }
-                                        return $values;
-                                    })
-                                ->end()
-                                ->validate()
-                                    ->ifTrue(function ($value){
-                                        if (!is_array($value)) {
-                                            return true;
-                                        }
-
-                                        // All key must be string. Used as alias for the validator service
-                                        if (count(array_filter(array_keys($value), 'is_string')) != count($value)) {
-                                            return true;
-                                        }
-
-                                        // All value must be array. Used as configuration for validator
-                                        if (count(array_filter(array_values($value), 'is_array')) != count($value)) {
-                                            return true;
-                                        }
-
-                                        return false;
-                                    })
-                                    ->thenInvalid('Invalid validators configuration')
-                                ->end()
-                            ->end()
+                            ->append($this->getValidators('upload_validators'))
+                            ->append($this->getValidators('crop_validators'))
                         ->end()
                     ->end()
                 ->end()
@@ -125,5 +90,68 @@ class MainConfiguration implements ConfigurationInterface
 
             $factory->addConfiguration($factoryNode);
         }
+    }
+
+    /**
+     * Add a custom validator key to configuration
+     *
+     * @param string $key
+     *
+     * @return TreeBuilder
+     */
+    protected function getValidators($key)
+    {
+        $treeBuilder = new TreeBuilder();
+        $rootNode = $treeBuilder->root($key);
+
+        $rootNode
+            ->defaultValue(array())
+            ->prototype('variable')
+            ->end()
+            ->beforeNormalization()
+                ->always()
+                ->then(function($values) {
+                    // Normalize null as array
+                    foreach ($values as $key => $value) {
+                        if ($value === NULL) {
+                            $values[$key] = array();
+                        }
+                    }
+                    return $values;
+                })
+            ->end();
+
+        $this->addValidatorValidation($rootNode);
+
+        return $rootNode;
+    }
+
+    /**
+     * Add validation to a validator key
+     *
+     * @param ArrayNodeDefinition $node
+     */
+    protected function addValidatorValidation(ArrayNodeDefinition $node)
+    {
+        $node->validate()
+            ->ifTrue(function ($value){
+                if (!is_array($value)) {
+                    return true;
+                }
+
+                // All key must be string. Used as alias for the validator service
+                if (count(array_filter(array_keys($value), 'is_string')) != count($value)) {
+                    return true;
+                }
+
+                // All value must be array. Used as configuration for validator
+                if (count(array_filter(array_values($value), 'is_array')) != count($value)) {
+                    return true;
+                }
+
+                return false;
+            })
+            ->thenInvalid('Invalid validators configuration')
+        ->end();
     }
 }
