@@ -25,27 +25,27 @@
             *
             * @returns {string}
             */
-           function translateMessage(msg) {
-               if (typeof Translator !== "undefined") {
-                   return Translator.trans(msg);
-               }
+            function translateMessage(msg) {
+                if (typeof Translator !== "undefined") {
+                    return Translator.trans(msg);
+                }
 
-               return msg;
-           }
+                return msg;
+            }
 
            /**
             * Toggle the upload field and crop tool
             *
             * @returns {undefined}
             */
-           function toggleCropingTool() {
-               $cropUpload.toggle();
-               $cropTool.toggle();
-               $cropX.val('');
-               $cropY.val('');
-               $cropWidth.val('');
-               $cropHeight.val('');
-           }
+            function toggleCropingTool() {
+                $cropUpload.toggle();
+                $cropTool.toggle();
+                $cropX.val('');
+                $cropY.val('');
+                $cropWidth.val('');
+                $cropHeight.val('');
+            }
 
            /**
             * Load the crop tool
@@ -54,45 +54,64 @@
             *
             * @returns {undefined}
             */
-           function loadCropingTool(result) {
-               // Display the crop tool
-               toggleCropingTool();
+            function loadCropingTool(result) {
+                // Display the crop tool
+                toggleCropingTool();
 
-               // Bind coordinate when croping
-               function showCoords(c) {
-                   $cropX.val(Math.round(c.x * naturalWidth / currentWidth));
-                   $cropY.val(Math.round(c.y * naturalHeight / currentHeight));
-                   $cropWidth.val(Math.round(c.w * naturalWidth / currentWidth));
-                   $cropHeight.val(Math.round(c.h * naturalHeight / currentHeight));
-               };
+                // Bind coordinate when croping
+                function showCoords(c) {
+                    $cropX.val(Math.round(c.x * naturalWidth / currentWidth));
+                    $cropY.val(Math.round(c.y * naturalHeight / currentHeight));
+                    $cropWidth.val(Math.round(c.w * naturalWidth / currentWidth));
+                    $cropHeight.val(Math.round(c.h * naturalHeight / currentHeight));
+                };
 
-               var cropConfig = {
-                   onSelect: showCoords,
-                   onChange: showCoords
-               };
-               $.each($cropImg.data(), function(index, value) {
-                   cropConfig[index] = value;
-               });
-               $cropImg.attr('src', result.filepath).load(function() {
-                   naturalHeight = this.naturalHeight;
-                   naturalWidth = this.naturalWidth;
-                   currentHeight = this.clientHeight;
-                   currentWidth = this.clientWidth;
-                   $cropImg.Jcrop(cropConfig);
+                var cropConfig = {
+                    onSelect: showCoords,
+                    onChange: showCoords
+                };
+                $.each($cropImg.data(), function(index, value) {
+                    cropConfig[index] = value;
+                });
+                $cropImg.attr('src', result.filepath).load(function() {
+                    naturalHeight = this.naturalHeight;
+                    naturalWidth = this.naturalWidth;
+                    currentHeight = this.clientHeight;
+                    currentWidth = this.clientWidth;
+                    $cropImg.Jcrop(cropConfig);
 
-                   // To remove multiple bind event on the same crop img element
-                   $cropImg.unbind('load');
-               });
-           }
+                    // To remove multiple bind event on the same crop img element
+                    $cropImg.unbind('load');
+                });
+            }
 
-           /**
-            * Process an ajax file upload success
-            *
-            * @param {object} e
-            * @param {object} data
-            *
-            * @type {fileuploadFunction}
-            */
+            /**
+             * Fill preview and form hidden field
+             *
+             * @param {Object} date
+             *
+             * @returns {undefined}
+             */
+            function fillResult(data)
+            {
+                $parentTag.find('.jb_result_filename').val(data.filename);
+
+                var $previewTag = $parentTag.find('.jb_result_preview');
+                if ($previewTag.prop("tagName") === "IMG") {
+                    $previewTag.attr('src', data.filepath);
+                } else {
+                    $previewTag.attr('href', data.filepath);
+                }
+            }
+
+            /**
+             * Process an ajax file upload success
+             *
+             * @param {object} e
+             * @param {object} data
+             *
+             * @type {fileuploadFunction}
+             */
             function fileUploadDone(e, data) {
                 // Manage error
                 $resultError.hide();
@@ -110,14 +129,8 @@
                 }
 
                 $parentTag.find('.jb_result_name').text(data.result.originalname);
-                $parentTag.find('.jb_result_filename').val(data.result.filename);
 
-                var $previewTag = $parentTag.find('.jb_result_preview');
-                if ($previewTag.prop("tagName") === "IMG") {
-                    $previewTag.attr('src', data.result.filepath);
-                } else {
-                    $previewTag.attr('href', data.result.filepath);
-                }
+                fillResult(data.result);
             }
 
             /**
@@ -156,7 +169,11 @@
                 event.preventDefault();
                 $.post($cropImg.data('url'), $cropTool.find('.jb_crop_field').serialize(), function(data) {
                     $resultError.hide();
-                    console.log(data);
+                    // Fill preview and hidden field
+                    fillResult(data);
+                    // Destroy and hide crop
+                    $cropImg.data('Jcrop').destroy();
+                    toggleCropingTool();
                 }, 'json').fail(function(data) {
                     if (typeof data.responseJSON !== "undefined" && typeof data.responseJSON.error !== "undefined") {
                         $resultError.show();

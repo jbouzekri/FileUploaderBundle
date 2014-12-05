@@ -99,7 +99,10 @@ class Croper
         // @TODO : configure filesystem name
         $this->filesystemMap->get('croped')->write($data['filename'], $cropedFile->getContent());
 
-        return $this->resolvers->getResolver($this->getCropResolver($endpoint))->getUrl($data['filename']);
+        return array(
+            'filepath' => $this->resolvers->getResolver($this->getCropResolver($endpoint))->getUrl($data['filename']),
+            'filename' => $data['filename']
+        );
     }
 
     /**
