@@ -114,10 +114,10 @@ class MainConfiguration implements ConfigurationInterface
             ->end()
             ->beforeNormalization()
                 ->always()
-                ->then(function($values) {
+                ->then(function ($values) {
                     // Normalize null as array
                     foreach ($values as $key => $value) {
-                        if ($value === NULL) {
+                        if ($value === null) {
                             $values[$key] = array();
                         }
                     }
@@ -138,7 +138,7 @@ class MainConfiguration implements ConfigurationInterface
     protected function addValidatorValidation(ArrayNodeDefinition $node)
     {
         $node->validate()
-            ->ifTrue(function ($value){
+            ->ifTrue(function ($value) {
                 if (!is_array($value)) {
                     return true;
                 }

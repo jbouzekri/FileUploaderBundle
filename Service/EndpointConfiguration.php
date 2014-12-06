@@ -43,8 +43,7 @@ class EndpointConfiguration
      */
     public function getValue($endpoint, $key)
     {
-        if (
-            isset($this->endpoints['endpoints'][$endpoint])
+        if (isset($this->endpoints['endpoints'][$endpoint])
             && isset($this->endpoints['endpoints'][$endpoint][$key])
         ) {
             return $this->endpoints['endpoints'][$endpoint][$key];

@@ -41,8 +41,7 @@ abstract class AbstractImageValidator extends AbstractValidator
     protected function validate($value, array $configuration)
     {
         // No configuration. Do nothing
-        if (
-            !isset($configuration['MinWidth']) && !isset($configuration['MaxWidth'])
+        if (!isset($configuration['MinWidth']) && !isset($configuration['MaxWidth'])
             && !isset($configuration['MinHeight']) && !isset($configuration['MaxHeight'])
             && !isset($configuration['MinRatio']) && !isset($configuration['MaxRatio'])
         ) {
@@ -61,7 +60,7 @@ abstract class AbstractImageValidator extends AbstractValidator
      *
      * @return array associative with key width and height
      */
-    protected abstract function extractWidthHeight($value);
+    abstract protected function extractWidthHeight($value);
 
     /**
      * Common image/crop validator check

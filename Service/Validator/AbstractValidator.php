@@ -69,5 +69,5 @@ abstract class AbstractValidator
      *
      * @throws \Jb\Bundle\FileUploaderBundle\Exception\ValidationException
      */
-    protected abstract function validate($value, array $configuration);
+    abstract protected function validate($value, array $configuration);
 }
