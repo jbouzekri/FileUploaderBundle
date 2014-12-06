@@ -12,8 +12,7 @@ namespace Jb\Bundle\FileUploaderBundle\EventListener\Validation;
 
 use Oneup\UploaderBundle\Event\ValidationEvent;
 use Oneup\UploaderBundle\Uploader\Exception\ValidationException;
-use Jb\Bundle\FileUploaderBundle\Service\ValidatorChain;
-use Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration;
+use Jb\Bundle\FileUploaderBundle\Service\ValidatorManager;
 use Jb\Bundle\FileUploaderBundle\Exception\ValidationException as JbFileUploaderValidationException;
 
 /**
@@ -24,25 +23,18 @@ use Jb\Bundle\FileUploaderBundle\Exception\ValidationException as JbFileUploader
 class ConfiguredValidationListener
 {
     /**
-     * @var \Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration
+     * @var \Jb\Bundle\FileUploaderBundle\Service\ValidatorManager
      */
-    protected $configuration;
-
-    /**
-     * @var \Jb\Bundle\FileUploaderBundle\Service\ValidatorChain
-     */
-    protected $validators;
+    protected $validator;
 
     /**
      * Constructor
      *
-     * @param ValidatorChain $validators
-     * @param EndpointConfiguration $configuration
+     * @param \Jb\Bundle\FileUploaderBundle\Service\ValidatorManager $validator
      */
-    public function __construct(ValidatorChain $validators, EndpointConfiguration $configuration)
+    public function __construct(ValidatorManager $validator)
     {
-        $this->validators = $validators;
-        $this->configuration = $configuration;
+        $this->validator = $validator;
     }
 
     /**
@@ -54,26 +46,13 @@ class ConfiguredValidationListener
     public function onValidate(ValidationEvent $event)
     {
         try {
-            $this->validate($event);
+            $this->validator->validate(
+                $event->getType(),
+                $event->getFile(),
+                'upload_validators'
+            );
         } catch (JbFileUploaderValidationException $e) {
             throw new ValidationException($e->getMessage(), null, $e);
-        }
-    }
-
-    /**
-     * Apply all validators to uploaded file
-     *
-     * @param ValidationEvent $event
-     *
-     * @throws \Jb\Bundle\FileUploaderBundle\Exception\ValidationException
-     */
-    protected function validate(ValidationEvent $event)
-    {
-        $validationConfiguration = $this->configuration->getValue($event->getType(), 'upload_validators');
-
-        foreach ($validationConfiguration as $validationType => $config) {
-            $validator = $this->validators->getValidator($validationType);
-            $validator->applyValidator($event->getFile(), $config);
         }
     }
 }

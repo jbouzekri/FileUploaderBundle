@@ -5,8 +5,8 @@ Same thing for all classes starting with jb_
 
 {% block jb_file_ajax_row %}
     <div id="{{ id }}_row" class="file-upload">
-        {{- form_label(form) -}}
         <div class="alert alert-danger jb_result_error" style="display: none;"></div>
+        {{- form_label(form) -}}
         {{- form_errors(form) -}}
         {{- form_widget(form) -}}
     </div>

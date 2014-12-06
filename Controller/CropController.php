@@ -35,11 +35,8 @@ class CropController extends \Symfony\Bundle\FrameworkBundle\Controller\Controll
 
         // Form invalid. Exit.
         if (!$form->isValid()) {
-            return new JsonResponse(
-                array(
-                    'error' => $this->get('translator')->trans('Invalid crop parameters')
-                ),
-                400
+            return $this->createErrorResponse(
+                $this->get('translator')->trans('Invalid crop parameters')
             );
         }
 
@@ -49,12 +46,24 @@ class CropController extends \Symfony\Bundle\FrameworkBundle\Controller\Controll
                 $this->get('jb_fileuploader.croper')->crop($endpoint, $form->getData())
             );
         } catch (\Exception $e) {
-            return new JsonResponse(
-                array(
-                    'error' => $e->getMessage()
-                ),
-                400
-            );
+            return $this->createErrorResponse($e->getMessage());
         }
+    }
+
+    /**
+     * Create error message
+     *
+     * @param string $message
+     *
+     * @return JsonResponse
+     */
+    protected function createErrorResponse($message)
+    {
+        return new JsonResponse(
+            array(
+                'error' => $message
+            ),
+            400
+        );
     }
 }

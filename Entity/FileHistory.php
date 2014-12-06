@@ -16,25 +16,13 @@ use Doctrine\ORM\Mapping as ORM;
  * FileHistory
  *
  * @ORM\Entity
- * @ORM\Table(
- *     name="jb_filehistory",
- *     indexes={
- *         @ORM\Index(name="jb_filehistory_filename_idx", columns={"file_name"})
- *     }
- * )
+ * @ORM\Table(name="jb_filehistory")
  */
 class FileHistory
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @var int
-     */
-    protected $id;
-
-    /**
+     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\Column(type="string", length=255, name="file_name")
      *
      * @var string
@@ -61,16 +49,6 @@ class FileHistory
      * @var int
      */
     protected $userId;
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set fileName

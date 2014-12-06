@@ -13,26 +13,24 @@ namespace Jb\Bundle\FileUploaderBundle\Service\Validator;
 use Jb\Bundle\FileUploaderBundle\Exception\ValidationException;
 
 /**
- * ImageValidator
+ * CropValidator
  *
  * @author jobou
  */
-class ImageValidator extends AbstractImageValidator
+class CropValidator extends AbstractImageValidator
 {
     /**
      * {@inheritdoc}
      */
     protected function extractWidthHeight($value)
     {
-        $size = @getimagesize($this->formatValue($value));
-
-        if (empty($size) || ($size[0] === 0) || ($size[1] === 0)) {
+        if (empty($value) || !isset($value['width']) || !isset($value['height'])) {
             throw new ValidationException('Unable to determine size.');
         }
 
         return array(
-            'width' => $size[0],
-            'height' => $size[1]
+            'width' => (int) $value['width'],
+            'height' => (int) $value['height']
         );
     }
 }

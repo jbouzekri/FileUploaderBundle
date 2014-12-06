@@ -10,12 +10,10 @@
 
 namespace Jb\Bundle\FileUploaderBundle\Service;
 
-use Liip\ImagineBundle\Imagine\Data\DataManager;
-use Liip\ImagineBundle\Imagine\Filter\FilterManager;
-use Knp\Bundle\GaufretteBundle\FilesystemMap;
 use Jb\Bundle\FileUploaderBundle\Service\ResolverChain;
 use Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration;
 use Jb\Bundle\FileUploaderBundle\Exception\JbFileUploaderException;
+use Jb\Bundle\FileUploaderBundle\Service\ValidatorManager;
 
 /**
  * Croper
@@ -25,19 +23,9 @@ use Jb\Bundle\FileUploaderBundle\Exception\JbFileUploaderException;
 class Croper
 {
     /**
-     * @var \Liip\ImagineBundle\Imagine\Data\DataManager
+     * @var \Jb\Bundle\FileUploaderBundle\Service\CropFileManager
      */
-    protected $dataManager;
-
-    /**
-     * @var \Liip\ImagineBundle\Imagine\Filter\FilterManager
-     */
-    protected $filterManager;
-
-    /**
-     * @var \Knp\Bundle\GaufretteBundle\FilesystemMap
-     */
-    protected $filesystemMap;
+    protected $cropManager;
 
     /**
      *
@@ -51,26 +39,28 @@ class Croper
     protected $configuration;
 
     /**
+     * @var \Jb\Bundle\FileUploaderBundle\Service\ValidatorManager
+     */
+    protected $validator;
+
+    /**
      * Constructor
      *
-     * @param \Liip\ImagineBundle\Imagine\Data\DataManager $dataManager
-     * @param \Liip\ImagineBundle\Imagine\Filter\FilterManager $filterManager
-     * @param \Knp\Bundle\GaufretteBundle\FilesystemMap $filesystemMap
+     * @param \Jb\Bundle\FileUploaderBundle\Service\CropFileManager $cropManager
      * @param \Jb\Bundle\FileUploaderBundle\Service\ResolverChain $resolvers
      * @param \Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration $configuration
+     * @param \Jb\Bundle\FileUploaderBundle\Service\ValidatorManager $validator
      */
     public function __construct(
-        DataManager $dataManager,
-        FilterManager $filterManager,
-        FilesystemMap $filesystemMap,
+        CropFileManager $cropManager,
         ResolverChain $resolvers,
-        EndpointConfiguration $configuration
+        EndpointConfiguration $configuration,
+        ValidatorManager $validator
     ) {
-        $this->dataManager = $dataManager;
-        $this->filterManager = $filterManager;
-        $this->filesystemMap = $filesystemMap;
+        $this->cropManager = $cropManager;
         $this->resolvers = $resolvers;
         $this->configuration = $configuration;
+        $this->validator = $validator;
     }
 
     /**
@@ -83,22 +73,16 @@ class Croper
      */
     public function crop($endpoint, array $data)
     {
-        // @TODO : configure endpoint original
-        $cropedFile = $this->filterManager->apply(
-            $binaryFile = $this->dataManager->find('original', $data['filename']),
-            array(
-                'filters' => array(
-                    'crop'=> array(
-                        'start' => array($data['x'], $data['y']),
-                        'size' => array($data['width'], $data['height'])
-                    )
-                )
-            )
-        );
+        // Throw ValidationException if there is an error
+        $this->validator->validate($endpoint, $data, 'crop_validators');
 
-        // @TODO : configure filesystem name
-        $this->filesystemMap->get('croped')->write($data['filename'], $cropedFile->getContent());
+        // Generate croped image
+        $cropedFile = $this->cropManager->transformFile($data);
 
+        // Save it to filesystem using gaufrette
+        $this->cropManager->saveTransformedFile($endpoint, $cropedFile, $data);
+
+        // Return data
         return array(
             'filepath' => $this->resolvers->getResolver($this->getCropResolver($endpoint))->getUrl($data['filename']),
             'filename' => $data['filename']

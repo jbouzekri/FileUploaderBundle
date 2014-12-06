@@ -44,13 +44,13 @@ class EndpointConfiguration
     public function getValue($endpoint, $key)
     {
         if (
-            !empty($this->endpoints['endpoints'][$endpoint])
-            && !empty($this->endpoints['endpoints'][$endpoint][$key])
+            isset($this->endpoints['endpoints'][$endpoint])
+            && isset($this->endpoints['endpoints'][$endpoint][$key])
         ) {
             return $this->endpoints['endpoints'][$endpoint][$key];
         }
 
-        if (!empty($this->endpoints[$key])) {
+        if (isset($this->endpoints[$key])) {
             return $this->endpoints[$key];
         }
 

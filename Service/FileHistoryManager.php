@@ -99,7 +99,7 @@ class FileHistoryManager implements FileHistoryManagerInterface
      */
     public function findOneByFileName($fileName)
     {
-        return $this->em->getRepository('JbFileUploaderBundle:FileHistory')->findOneByFileName($fileName);
+        return $this->em->getRepository('JbFileUploaderBundle:FileHistory')->find($fileName);
     }
 
     /**

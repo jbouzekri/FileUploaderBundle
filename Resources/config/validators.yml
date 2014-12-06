@@ -1,8 +1,16 @@
 parameters:
     jb_fileuploader.validator_chain.class: Jb\Bundle\FileUploaderBundle\Service\ValidatorChain
     jb_fileupload.image.validator.class: Jb\Bundle\FileUploaderBundle\Service\Validator\ImageValidator
+    jb_fileupload.image.crop.class: Jb\Bundle\FileUploaderBundle\Service\Validator\CropValidator
+    jb_fileuploader.validator.manager.class: Jb\Bundle\FileUploaderBundle\Service\ValidatorManager
 
 services:
+    jb_fileuploader.validator.manager:
+        class: "%jb_fileuploader.validator.manager.class%"
+        arguments:
+            - @jb_fileuploader.validator_chain
+            - @jb_fileuploader.endpoint_configuration
+
     jb_fileuploader.validator_chain:
         class: "%jb_fileuploader.validator_chain.class%"
 
@@ -10,3 +18,8 @@ services:
         class: "%jb_fileupload.image.validator.class%"
         tags:
             - { name: jb_fileuploader.validator, alias: Image }
+
+    jb_fileupload.crop.validator:
+        class: "%jb_fileupload.image.crop.class%"
+        tags:
+            - { name: jb_fileuploader.validator, alias: Crop }
