@@ -1,8 +1,8 @@
 {
     "name": "jbouzekri/file-uploader-bundle",
     "type": "symfony-bundle",
-    "description": "Aggregate some bundles and libraries to provide easy ajax file upload integration",
-    "keywords": ["Symfony", "upload", "ajax", "jcrop", "fileupload"],
+    "description": "Aggregate some bundles and libraries to provide easy ajax file upload integration with functionnalities like image croping or storage on amazon",
+    "keywords": ["Symfony", "upload", "ajax", "jcrop", "file", "upload", "S3", "resize", "crop"],
     "homepage": "https://github.com/jbouzekri/FileUploaderBundle",
     "license": "MIT",
     "require": {
