@@ -1,4 +1,19 @@
-FileUploaderBundle
-==================
+JbFileUploaderBundle
+====================
 
-Aggregate some bundles and libraries to provide easy ajax file upload integration
+This bundle aggregates the following bundles to provides ajax file upload with crop and validation :
+* [OneupUploaderBundle](https://github.com/1up-lab/OneupUploaderBundle) : server implementation for file upload
+* [KnpGaufretteBundle](https://github.com/KnpLabs/KnpGaufretteBundle) : Filesystem abstraction to store file on different support
+* [LiipImagineBundle](https://github.com/liip/LiipImagineBundle) : Image resize
+
+For documentation, see:
+
+[Documentation](https://github.com/jbouzekri/FileUploaderBundle/tree/master/Resources/doc/index.md)
+
+A little preview :
+
+![Preview FileUploaderBundle](https://github.com/jbouzekri/FileUploaderBundle/tree/master/Resources/doc/img/screenshots.png)
+
+License:
+
+[License](https://github.com/jbouzekri/FileUploaderBundle/blob/master/LICENSE)
