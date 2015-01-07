@@ -12,7 +12,7 @@ For documentation, see:
 
 A little preview :
 
-![Preview FileUploaderBundle](https://github.com/jbouzekri/FileUploaderBundle/tree/master/Resources/doc/img/screenshots.png)
+![Preview FileUploaderBundle](Resources/doc/img/screenshots.png?raw=true)
 
 License:
 
