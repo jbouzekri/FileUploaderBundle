@@ -35,9 +35,15 @@ Same thing for all classes starting with jb_
 
 {% block jb_image_ajax_widget %}
     {% if file_history is not null %}
-        <img class="jb_result_preview" src="{{ file_history_url }}" width="{{ img_width }}" />
+        <img class="jb_result_preview"
+             src="{{ file_history_url }}"
+             {% if img_width is defined %}width="{{ img_width }}"{% endif %}
+             {% if img_height is defined %}width="{{ img_height }}"{% endif %} />
     {% else %}
-        <img class="jb_result_preview" src="{{ asset(default_image) }}" width="{{ img_width }}" />
+        <img class="jb_result_preview"
+             src="{{ asset(default_image) }}"
+             {% if img_width is defined %}width="{{ img_width }}"{% endif %}
+             {% if img_height is defined %}width="{{ img_height }}"{% endif %} />
     {% endif %}
 
     {{ block('jb_file_ajax_widget') }}
