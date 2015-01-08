@@ -55,7 +55,7 @@ class ValidatorManager
     {
         $validationConfiguration = $this->configuration->getValue($endpoint, $configKey);
 
-        foreach ($validationConfiguration as $validationType => $config) {
+        foreach ((array) $validationConfiguration as $validationType => $config) {
             $validator = $this->validators->getValidator($validationType);
             $validator->applyValidator($value, $config);
         }

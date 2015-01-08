@@ -44,6 +44,17 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [120, 90], mode: outbound }
+
+jb_file_uploader:
+    resolvers:
+        upload:
+            assets:
+                directory: uploads
+    endpoints:
+        gallery:
+            upload_resolver: upload
+            upload_validators: {}
+            crop_validators: {}
 ```
 
 How to use
@@ -58,7 +69,7 @@ $builder->add('image', 'jb_image_ajax', array(
 ));
 ```
 
-This field provides an ajax image file upload.
+This field provides an ajax image file upload. It uses the configured `gallery` oneup endpoint.
 
 The next paragraph will explain each bundle configuration.
 
@@ -126,3 +137,33 @@ This yml configures a file loader using the gaufrette image filesystem (the one 
 Then 2 filters :
 * original : a technical filters used by the bundle to serve orginal files
 * thumb_from_original : a filter resizing image to a thumbnail of 120x90
+
+jb explanation
+--------------
+
+``` yml
+jb_file_uploader:
+    resolvers:
+        upload:
+            assets:
+                directory: uploads
+    endpoints:
+        gallery:
+            upload_resolver: upload
+            upload_validators: {}
+            crop_validators: {}
+```
+
+This yml configure a resolver upload which will help to build url relative to the uploads folder to preview the uploaded file.
+
+For each oneup endpoint, we set the configured resolver to use. Here, the gallery endpoint used the image gaufrette filesystem which will put
+ all files in the web/uploads folder. So to generate an url, we need a resolver of type asset which will use the uploads directory : `/uploads/<filename>`).
+
+More complicated settings
+-------------------------
+
+This setting provides base configuration but you can go very more deeply with file type validation, ratio, image width or height validation, croping, croping result validation
+or saving in other storage :
+* [validation](validation.md)
+* [crop field type and configuration](../file_upload/crop.md)
+* [storage in amazon s3](../advanced/amazons3.md)
