@@ -74,6 +74,13 @@ liip_imagine:
         original: ~
 ```
 
+Enable the liip resize route at the start of the `app/routing.yml` :
+
+``` yml
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+```
+
 Load bundle form type theme
 ---------------------------
 

@@ -73,7 +73,7 @@ This field provides an ajax image file upload. It uses the configured `gallery` 
 
 The next paragraph will explain each bundle configuration.
 
-*Note:* All folders must be created (`web/uploads`, `web/media`) and must be writable by apache.
+__Note: All folders must be created (`web/uploads`, `web/media`) and must be writable by apache.__
 
 knp_gaufrette explanation
 -------------------------

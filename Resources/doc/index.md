@@ -6,7 +6,7 @@ Base documentation
 
 * [Installation](base/install.md)
 * [Getting started](base/getting_started.md)
-* [Configuration](base/configuration.md)
+* [Reference](base/reference.md)
 * [Validation](base/validation.md)
 
 Form Fields

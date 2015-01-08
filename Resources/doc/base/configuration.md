@@ -1,4 +1,0 @@
-Configuration
-=============
-
-Work in progress ...
