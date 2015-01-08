@@ -63,6 +63,17 @@ oneup_uploader:
 
 For more information about the oneup configuration, jump to  [the bundle documentation](https://github.com/1up-lab/OneupUploaderBundle/blob/master/Resources/doc/index.md)
 
+Configure Liip
+--------------
+
+Add the base configuration for liip bundle in `app/config.yml` with a special filter named original which will be used to serve the original image :
+
+``` yml
+liip_imagine:
+    filter_sets:
+        original: ~
+```
+
 Load bundle form type theme
 ---------------------------
 

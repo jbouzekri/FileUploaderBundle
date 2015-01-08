@@ -31,7 +31,7 @@ class ImageAjaxType extends AbstractType
             'img_height'
         ));
 
-        $resolver->replaceDefaults(
+        $resolver->setDefaults(
             array(
                 'default_image' => 'bundles/jbfileuploader/img/default.png'
             )
