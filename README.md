@@ -6,14 +6,17 @@ This bundle aggregates the following bundles to provides ajax file upload with c
 * [KnpGaufretteBundle](https://github.com/KnpLabs/KnpGaufretteBundle) : Filesystem abstraction to store file on different support
 * [LiipImagineBundle](https://github.com/liip/LiipImagineBundle) : Image resize
 
-For documentation, see:
+Documentation
+-------------
 
 [Documentation](https://github.com/jbouzekri/FileUploaderBundle/tree/master/Resources/doc/index.md)
 
-A little preview :
+Preview
+-------
 
 ![Preview FileUploaderBundle](Resources/doc/img/screenshots.png?raw=true)
 
-License:
+License
+-------
 
 [License](https://github.com/jbouzekri/FileUploaderBundle/blob/master/LICENSE)
