@@ -1,6 +1,7 @@
 parameters:
     jb_fileuploader.resolver_factory.asset.class: Jb\Bundle\FileUploaderBundle\DependencyInjection\ResolverFactory\AssetsResolverFactory
     jb_fileuploader.resolver_factory.imagine.class: Jb\Bundle\FileUploaderBundle\DependencyInjection\ResolverFactory\ImagineResolverFactory
+    jb_fileuploader.resolver_factory.aws3.class: Jb\Bundle\FileUploaderBundle\DependencyInjection\ResolverFactory\Aws3ResolverFactory
 
 services:
     jb_fileuploader.resolver_factory.asset:
@@ -10,5 +11,10 @@ services:
 
     jb_fileuploader.resolver_factory.imagine:
         class: "%jb_fileuploader.resolver_factory.imagine.class%"
+        tags:
+            - { name: jb_fileuploader.resolver.factory }
+
+    jb_fileuploader.resolver_factory.aws3:
+        class: "%jb_fileuploader.resolver_factory.aws3.class%"
         tags:
             - { name: jb_fileuploader.resolver.factory }

@@ -1,9 +1,15 @@
 parameters:
     jb_fileuploader.resolver.asset.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\AssetsResolver
+    jb_fileuploader.resolver.aws3.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\Aws3Resolver
     jb_fileuploader.resolver_chain.class: Jb\Bundle\FileUploaderBundle\Service\ResolverChain
     jb_fileuploader.resolver.imagine.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\ImagineCacheManagerResolver
 
 services:
+    jb_fileuploader.resolver.aws3.prototype:
+        class: %jb_fileuploader.resolver.aws3.prototype.class%
+        scope: request
+        abstract: true
+
     jb_fileuploader.resolver.asset.prototype:
         class: %jb_fileuploader.resolver.asset.prototype.class%
         scope: request

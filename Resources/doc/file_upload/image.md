@@ -17,5 +17,5 @@ The specific option are :
 * img_width : the width of the preview img tag
 * img_height : the height of the preview img tag
 
-_Note : Upload file validation can be configured in [`config.yml`](../base/validation.md).
+_Note :_ Upload file validation can be configured in [`config.yml`](../base/validation.md).
 

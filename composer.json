@@ -11,7 +11,8 @@
         "liip/imagine-bundle": "~1.1.0"
     },
     "suggest": {
-        "willdurand/js-translation-bundle": "Provide js translation in ajax"
+        "willdurand/js-translation-bundle": "Provide js translation in ajax",
+        "aws/aws-sdk-php": "Store your uploads in amazon s3"
     },
     "autoload": {
         "psr-0": { "Jb\\Bundle\\FileUploaderBundle": "" }
