@@ -38,6 +38,7 @@ class CropImageAjaxType extends AbstractType
 
         $resolver->setDefaults(
             array(
+                'resolver_key' => 'croped_resolver',
                 'max_width' => 350,
                 'max_height' => 350,
                 'reset_button' => true,

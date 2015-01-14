@@ -105,11 +105,11 @@ class FileHistoryManager implements FileHistoryManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function getUrl(FileHistory $fileHistory)
+    public function getUrl(FileHistory $fileHistory, $resolverType = 'upload_resolver')
     {
         // Add file path to response
         $resolver = $this->resolvers->getResolver(
-            $this->configuration->getValue($fileHistory->getType(), 'upload_resolver')
+            $this->configuration->getValue($fileHistory->getType(), $resolverType)
         );
         return $resolver->getUrl($fileHistory->getFilename(), $fileHistory->getType());
     }

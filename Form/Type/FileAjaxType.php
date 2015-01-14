@@ -44,9 +44,14 @@ class FileAjaxType extends AbstractType
         // Endpoint mandatory for fileupload bundle
         $resolver->setRequired(array('endpoint'));
 
-        $resolver->setOptional(array('display_link'));
+        $resolver->setOptional(array(
+            'display_link',
+            'resolver_key'
+        ));
+
         $resolver->setDefaults(array(
-            'display_link' => true
+            'display_link' => true,
+            'resolver_key' => 'upload_resolver'
         ));
     }
 
@@ -59,7 +64,7 @@ class FileAjaxType extends AbstractType
         $fileHistoryUrl = null;
         if ($form->getData() !== null) {
             $fileHistory = $this->fileHistoryManager->findOneByFileName($form->getData());
-            $fileHistoryUrl = $this->fileHistoryManager->getUrl($fileHistory);
+            $fileHistoryUrl = $this->fileHistoryManager->getUrl($fileHistory, $options['resolver_key']);
         }
 
         $className = 'jb_result_filename';
