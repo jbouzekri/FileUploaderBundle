@@ -60,7 +60,16 @@ jb_file_uploader:
 How to use
 ----------
 
-In a form type, you can use the [image field type](../file_upload/image.md) for example :
+In your entity, add a field to store the image name :
+
+``` php
+/**
+ * @ORM\Column(type="string", length=100, nullable=true)
+ */
+protected $image;
+```
+
+In a form type, use [image field type](../file_upload/image.md) on your new image attribute :
 
 ``` php
 $builder->add('image', 'jb_image_ajax', array(
