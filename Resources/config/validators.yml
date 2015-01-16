@@ -3,6 +3,7 @@ parameters:
     jb_fileupload.image.validator.class: Jb\Bundle\FileUploaderBundle\Service\Validator\ImageValidator
     jb_fileupload.image.crop.class: Jb\Bundle\FileUploaderBundle\Service\Validator\CropValidator
     jb_fileuploader.validator.manager.class: Jb\Bundle\FileUploaderBundle\Service\ValidatorManager
+    jb_fileupload.file_owner.validator.class: Jb\Bundle\FileUploaderBundle\Service\Validator\Constraints\FileOwnerValidator
 
 services:
     jb_fileuploader.validator.manager:
@@ -23,3 +24,11 @@ services:
         class: "%jb_fileupload.image.crop.class%"
         tags:
             - { name: jb_fileuploader.validator, alias: Crop }
+
+    jb_fileupload.file_owner.validator:
+        class: %jb_fileupload.file_owner.validator.class%
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @security.token_storage
+        tags:
+            - { name: validator.constraint_validator, alias: jb_file_owner }
