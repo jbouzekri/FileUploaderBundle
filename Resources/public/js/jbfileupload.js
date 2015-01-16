@@ -16,6 +16,7 @@
                 $cropWidth = $parentTag.find('.jb_crop_width'),
                 $cropHeight = $parentTag.find('.jb_crop_height'),
                 $cropFilename = $parentTag.find('.jb_crop_filename'),
+                $previewTag = $parentTag.find('.jb_result_preview'),
                 naturalWidth, naturalHeight, currentWidth, currentHeight;
 
             /**
@@ -95,8 +96,8 @@
             function fillResult(data)
             {
                 $parentTag.find('.jb_result_filename').val(data.filename);
+                $parentTag.find('.jb_result_name').text(data.originalname);
 
-                var $previewTag = $parentTag.find('.jb_result_preview');
                 if ($previewTag.prop("tagName") === "IMG") {
                     $previewTag.attr('src', data.filepath);
                 } else {
@@ -127,8 +128,6 @@
                     loadCropingTool(data.result);
                     return;
                 }
-
-                $parentTag.find('.jb_result_name').text(data.result.originalname);
 
                 fillResult(data.result);
             }
@@ -180,6 +179,20 @@
                         $resultError.text(translateMessage(data.responseJSON.error));
                     }
                 });
+            });
+
+            // Remove/Empty link;
+            $parentTag.find('.jb_remove_link').click(function(event){
+                event.preventDefault();
+                event.stopPropagation();
+
+                var previewData = $previewTag.data('default');
+                var clearResultData = {
+                    filename: '',
+                    originalname: '',
+                    filepath: previewData
+                }
+                fillResult(clearResultData)
             });
 
             // Load jquery file upload

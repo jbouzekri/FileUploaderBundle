@@ -43,7 +43,7 @@ class ImageAjaxType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['display_link'] = false;
+        $view->vars['download_link'] = false;
         $view->vars['default_image'] = $options['default_image'];
 
         if (isset($options['img_width'])) {

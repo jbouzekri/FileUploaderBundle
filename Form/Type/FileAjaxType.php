@@ -45,12 +45,14 @@ class FileAjaxType extends AbstractType
         $resolver->setRequired(array('endpoint'));
 
         $resolver->setOptional(array(
-            'display_link',
+            'download_link',
+            'remove_link',
             'resolver_key'
         ));
 
         $resolver->setDefaults(array(
-            'display_link' => true,
+            'download_link' => true,
+            'remove_link' => true,
             'resolver_key' => 'upload_resolver'
         ));
     }
@@ -77,7 +79,8 @@ class FileAjaxType extends AbstractType
         $view->vars['file_history'] = $fileHistory;
         $view->vars['file_history_url'] = $fileHistoryUrl;
         $view->vars['endpoint'] = $options['endpoint'];
-        $view->vars['display_link'] = $options['display_link'];
+        $view->vars['download_link'] = $options['download_link'];
+        $view->vars['remove_link'] = $options['remove_link'];
         $view->vars['use_crop'] = false;
     }
 
