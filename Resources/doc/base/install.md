@@ -9,7 +9,7 @@ Add the bundle to your `composer.json` :
 ``` json
 {
     "require": {
-        "jbouzekri/file-uploader-bundle": "dev-master"
+        "jbouzekri/file-uploader-bundle": "~2.0"
     }
 }
 ```
@@ -21,7 +21,7 @@ php composer.phar update
 ```
 
 _Note : this bundle use some symfony 2.6 services. If you have an earlier version, you should require
-`"jbouzekri/file-uploader-bundle": "dev-master#c3b36d5e29a2cc5acf58bb8c8d1eb08c71e5893c"` as at this time it was not dependant on these services._
+`"jbouzekri/file-uploader-bundle": "~1.0"` as at this time it was not dependant on these services._
 
 Enable bundles
 --------------
