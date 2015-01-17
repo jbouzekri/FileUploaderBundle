@@ -17,6 +17,7 @@
                 $cropHeight = $parentTag.find('.jb_crop_height'),
                 $cropFilename = $parentTag.find('.jb_crop_filename'),
                 $previewTag = $parentTag.find('.jb_result_preview'),
+                $loadingTag = $parentTag.find('.jb_loading'),
                 naturalWidth, naturalHeight, currentWidth, currentHeight;
 
             /**
@@ -114,6 +115,8 @@
              * @type {fileuploadFunction}
              */
             function fileUploadDone(e, data) {
+                loadingToggle({});
+
                 // Manage error
                 $resultError.hide();
                 if (typeof data.result.files !== "undefined" && typeof data.result.files[0] !== "undefined" && typeof data.result.files[0].error !== "undefined") {
@@ -141,10 +144,26 @@
              * @returns {undefined}
              */
             function fileUploadError(e, data) {
-                if (typeof e.responseJSON[0].message !== "undefined") {
+                loadingToggle({});
+                if (typeof e.responseJSON.error !== "undefined" && typeof e.responseJSON.error.message !== "undefined") {
+                    $resultError.show();
+                    $resultError.text(e.responseJSON.error.message);
+                } else if (typeof e.responseJSON[0] !== "undefined" && typeof e.responseJSON[0].message !== "undefined") {
                     $resultError.show();
                     $resultError.text(e.responseJSON[0].message);
                 }
+            }
+
+            /**
+             * Run when starting file upload
+             *
+             * @param {object} e
+             *
+             * @returns {undefined}
+             */
+            function loadingToggle(e) {
+                $loadingTag.toggle();
+                $previewTag.toggle();
             }
 
             // JQuery plugin configuration
@@ -152,7 +171,8 @@
                 // These are the defaults.
                 dataType: 'json',
                 done: fileUploadDone,
-                error: fileUploadError
+                error: fileUploadError,
+                start: loadingToggle
             }, options );
 
             // Bind all events

@@ -14,7 +14,7 @@ Same thing for all classes starting with jb_
 
 {% block jb_file_ajax_widget %}
     <span class="fileinput-button">
-        <span>{{ 'Import a file'|trans({}, translation_domain) }}</span>
+        <span><a href="#importFile">{{ 'Import a file'|trans({}, translation_domain) }}</a></span>
         <input
             class="jb_fileupload"
             type="file"
@@ -39,6 +39,11 @@ Same thing for all classes starting with jb_
             <a class="jb_result_preview" data-default="#no-preview" href="#no-preview"><span class="jb_result_name"></span></a>
         {% endif %}
     {% endif %}
+    {% if loading_generated is not defined %}
+        <img class="jb_loading"
+             src="{{ asset(loading_file) }}"
+             style="display: none;" />
+    {% endif %}
 {% endblock %}
 
 {% block jb_image_ajax_widget %}
@@ -53,6 +58,11 @@ Same thing for all classes starting with jb_
          {% if img_width is defined %}width="{{ img_width }}"{% endif %}
          {% if img_height is defined %}width="{{ img_height }}"{% endif %} />
 
+    <img class="jb_loading"
+         src="{{ asset(loading_file) }}"
+         style="display: none;" />
+
+    {% set loading_generated = true %}
     {{ block('jb_file_ajax_widget') }}
 {% endblock %}
 

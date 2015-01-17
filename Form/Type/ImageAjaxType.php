@@ -33,7 +33,8 @@ class ImageAjaxType extends AbstractType
 
         $resolver->setDefaults(
             array(
-                'default_image' => 'bundles/jbfileuploader/img/default.png'
+                'default_image' => 'bundles/jbfileuploader/img/default.png',
+                'loading_file' => 'bundles/jbfileuploader/img/ajax-loader.gif',
             )
         );
     }

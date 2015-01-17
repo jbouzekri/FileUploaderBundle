@@ -5,3 +5,7 @@
 .jb_crop_upload {
     display: inline-block;
 }
+
+.fileinput-button:hover a {
+    text-decoration: underline;
+}

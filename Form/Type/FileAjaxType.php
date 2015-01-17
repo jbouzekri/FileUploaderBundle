@@ -47,12 +47,14 @@ class FileAjaxType extends AbstractType
         $resolver->setOptional(array(
             'download_link',
             'remove_link',
+            'loading_file',
             'resolver_key'
         ));
 
         $resolver->setDefaults(array(
             'download_link' => true,
             'remove_link' => true,
+            'loading_file' => 'bundles/jbfileuploader/img/ajax-loader-small.gif',
             'resolver_key' => 'upload_resolver'
         ));
     }
@@ -81,6 +83,7 @@ class FileAjaxType extends AbstractType
         $view->vars['endpoint'] = $options['endpoint'];
         $view->vars['download_link'] = $options['download_link'];
         $view->vars['remove_link'] = $options['remove_link'];
+        $view->vars['loading_file'] = $options['loading_file'];
         $view->vars['use_crop'] = false;
     }
 
