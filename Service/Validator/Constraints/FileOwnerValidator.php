@@ -13,7 +13,7 @@ namespace Jb\Bundle\FileUploaderBundle\Service\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * FileOwnerValidator
@@ -28,20 +28,20 @@ class FileOwnerValidator extends ConstraintValidator
     protected $em;
 
     /**
-     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
+     * @var SecurityContext
      */
-    protected $tokenStorage;
+    protected $securityContext;
 
     /**
      * Constructor
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $em
-     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
+     * @param SecurityContext $securityContext
      */
-    public function __construct(ObjectManager $em, TokenStorageInterface $tokenStorage)
+    public function __construct(ObjectManager $em, SecurityContext $securityContext)
     {
         $this->em = $em;
-        $this->tokenStorage = $tokenStorage;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -62,17 +62,7 @@ class FileOwnerValidator extends ConstraintValidator
             return;
         }
 
-        // No token. Violation as there is a user id associate with file.
-        $token = $this->tokenStorage->getToken();
-        if (!$token) {
-            return $this->createViolation($value, $constraint);
-        }
-
-        // No user. Violation as there is a user id associate with file.
-        $user = $token->getUser();
-        if (!$user) {
-            return $this->createViolation($value, $constraint);
-        }
+        $user = $this->getAuthUser($value, $constraint);
 
         if ($user->getId() !== $fileHistory->getUserId()) {
             return $this->createViolation($value, $constraint);
@@ -94,5 +84,27 @@ class FileOwnerValidator extends ConstraintValidator
             ->buildViolation($constraint->message)
             ->setParameter('%filename%', $value)
             ->addViolation();
+    }
+
+    /**
+     * Get authenticated user id
+     *
+     * @return int
+     */
+    protected function getAuthUser($value, $constraint)
+    {
+        // No token. Violation as there is a user id associate with file.
+        $token = $this->securityContext->getToken();
+        if (null === $token) {
+            return $this->createViolation($value, $constraint);
+        }
+
+        // No user. Violation as there is a user id associate with file.
+        $user = $token->getUser();
+        if (!is_object($user)) {
+            return $this->createViolation($value, $constraint);
+        }
+
+        return $user;
     }
 }

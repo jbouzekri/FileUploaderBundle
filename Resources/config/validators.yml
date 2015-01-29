@@ -29,6 +29,6 @@ services:
         class: %jb_fileupload.file_owner.validator.class%
         arguments:
             - @doctrine.orm.entity_manager
-            - @security.token_storage
+            - @security.context
         tags:
             - { name: validator.constraint_validator, alias: jb_file_owner }
