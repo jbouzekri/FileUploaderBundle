@@ -72,9 +72,9 @@ Same thing for all classes starting with jb_
     </div>
     <div class="jb_crop_tool" style="display: none;">
         <img class="jb_crop_img" src="" {{ block('jb_crop_attributes') }} style="max-width: {{ max_width }}px; max-height: {{ max_height }}px;"/>
-        <button class="jb_crop_confirm">{{ confirm_button_label|trans({}, translation_domain) }}</button>
+        <a class="jb_crop_confirm">{{ confirm_button_label|trans({}, translation_domain) }}</a>
         {% if reset_button %}
-            <button type="submit" class="jb_crop_reset">{{ reset_button_label|trans({}, translation_domain) }}</button>
+            <a class="jb_crop_reset">{{ reset_button_label|trans({}, translation_domain) }}</a>
         {% endif %}
         <input type="hidden" class="jb_crop_field jb_crop_x" name="jb_fileuploader_crop[x]" value="" />
         <input type="hidden" class="jb_crop_field jb_crop_y" name="jb_fileuploader_crop[y]" value="" />
