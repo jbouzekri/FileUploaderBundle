@@ -1,6 +1,115 @@
 Image file upload with crop
 ===========================
 
+Installation
+------------
+
+If you want to use the crop field type, you must add the croping route to your `app/config/routing.yml` :
+
+```yml
+jb_fileupload_crop:
+    resource: "@JbFileUploaderBundle/Resources/config/routing.yml"
+```
+
+Getting started
+---------------
+
+The getting started configuration provided in the [getting started](../base/getting_started.md) documentation must be extended to manage the crop field.
+
+This is a simple extension working for all basic cases :
+
+``` yml
+knp_gaufrette:
+    stream_wrapper: ~
+    adapters:
+        image:
+            local:
+                directory: %kernel.root_dir%/../web/uploads
+                create: true
+        croped:
+            local:
+                directory: %kernel.root_dir%/../web/uploads/croped
+                create: true
+    filesystems:
+        image:
+            adapter: image
+            alias: image_filesystem
+        croped:
+            adapter: croped
+            alias: croped_filesystem
+
+oneup_uploader:
+    mappings:
+        gallery:
+            frontend: blueimp
+            storage:
+                type: gaufrette
+                filesystem: gaufrette.image_filesystem
+                stream_wrapper: gaufrette://image/
+
+jb_file_uploader:
+    resolvers:
+        upload:
+            assets:
+                directory: uploads
+        croped:
+            assets:
+                directory: uploads/croped
+    croped_fs: croped
+    croped_resolver: croped
+    endpoints:
+        gallery:
+            upload_resolver: upload
+            upload_validators: {}
+            crop_validators: {}
+
+liip_imagine:
+    data_loader: stream.image_filesystem
+    loaders:
+        stream.image_filesystem:
+            stream:
+                wrapper: gaufrette://image/
+        stream.croped_filesystem:
+            stream:
+                wrapper: gaufrette://croped/
+    filter_sets:
+        original: ~
+        thumb_from_original:
+            quality: 75
+            filters:
+                thumbnail: { size: [120, 90], mode: outbound }
+        thumb_from_croped:
+            data_loader: stream.croped_filesystem
+            quality: 75
+            filters:
+                thumbnail: { size: [120, 90], mode: outbound }
+```
+
+This configuration provides 2 knp gaufrette filesystems :
+
+* `gaufrette.image_filesystem` with the stream `gaufrette://image/` which stores file in the `web/uploads` folder
+* `gaufrette.croped_filesystem` with the stream `gaufrette://croped/` which stores file in the `web/uploads/croped` folder
+
+The ajax file uploader for oneup bundle stores original uploaded file in the `gaufrette.image_filesystem` filesystem.
+
+The jb fileuploader configuration provides :
+
+* a `upload` resolver with generates relative url for files located in the `web/uploads` folder
+* a `croped` resolver with generates relative url for files located in the `web/uploads/croped` folder
+* `croped_fs` configures the gaufrette filesystem to be used to fetch and stores croped image file
+* `croped_resolver` configures the resolver to be used to generate croped image url and render them
+* and an endpoint matching the one in oneup bundle
+
+The liip imagine bundle configures :
+
+* 2 data loaders : one for original images stored in `gaufrette.image_filesystem` and another one for the croped ones stored in `gaufrette.croped_filesystem`
+* Per default, it fetches original images with the `stream.image_filesystem`
+* 2 filter sets example : one resizing from the original image `thumb_from_original` and the other resizing from the croped image `thumb_from_croped`
+* a global data loader indicating
+
+Reference
+---------
+
 This form type provides file upload optimized for image with a crop function based on [jquery jcrop plugin](http://github.com/tapmodo/Jcrop).
 
 ~~~ php
