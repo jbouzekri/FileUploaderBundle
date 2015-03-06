@@ -11,6 +11,7 @@
 namespace Jb\Bundle\FileUploaderBundle\Service\Validator;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Jb\Bundle\FileUploaderBundle\Exception\ValidationException;
 
 /**
@@ -20,6 +21,21 @@ use Jb\Bundle\FileUploaderBundle\Exception\ValidationException;
  */
 abstract class AbstractImageValidator extends AbstractValidator
 {
+    /**
+     * @var Symfony\Component\Translation\TranslatorInterface
+     */
+    protected $translation;
+
+    /**
+     * Constructor
+     *
+     * @param TranslatorInterface $translation
+     */
+    public function __construct(TranslatorInterface $translation)
+    {
+        $this->translation = $translation;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -75,25 +91,37 @@ abstract class AbstractImageValidator extends AbstractValidator
     {
         if (isset($configuration['MinWidth']) && $this->validateConfig('MinWidth', $configuration)) {
             if ($width < $configuration['MinWidth']) {
-                throw new ValidationException('Minimum width must be '.$configuration['MinWidth'].'px');
+                throw new ValidationException($this->translation->trans(
+                    'Minimum width must be %value%px',
+                    array('%value%' => $configuration['MinWidth'])
+                ));
             }
         }
 
         if (isset($configuration['MaxWidth']) && $this->validateConfig('MaxWidth', $configuration)) {
             if ($width > $configuration['MaxWidth']) {
-                throw new ValidationException('Maximum width must be '.$configuration['MaxWidth'].'px');
+                throw new ValidationException($this->translation->trans(
+                    'Maximum width must be %value%px',
+                    array('%value%' => $configuration['MaxWidth'])
+                ));
             }
         }
 
         if (isset($configuration['MinHeight']) && $this->validateConfig('MinHeight', $configuration)) {
             if ($height < $configuration['MinHeight']) {
-                throw new ValidationException('Minimum height must be '.$configuration['MinHeight'].'px');
+                throw new ValidationException($this->translation->trans(
+                    'Minimum height must be %value%px',
+                    array('%value%' => $configuration['MinHeight'])
+                ));
             }
         }
 
         if (isset($configuration['MaxHeight']) && $this->validateConfig('MaxHeight', $configuration)) {
             if ($height > $configuration['MaxHeight']) {
-                throw new ValidationException('Minimum height must be '.$configuration['MaxHeight'].'px');
+                throw new ValidationException($this->translation->trans(
+                    'Maximum height must be %value%px',
+                    array('%value%' => $configuration['MaxHeight'])
+                ));
             }
         }
 
@@ -101,13 +129,19 @@ abstract class AbstractImageValidator extends AbstractValidator
 
         if (isset($configuration['MinRatio']) && $this->validateConfig('MinRatio', $configuration, true)) {
             if ($ratio < $configuration['MinRatio']) {
-                throw new ValidationException('Minimum ratio must be '.$configuration['MinRatio']);
+                throw new ValidationException($this->translation->trans(
+                    'Minimum ratio must be %value%',
+                    array('%value%' => $configuration['MinRatio'])
+                ));
             }
         }
 
         if (isset($configuration['MaxRatio']) && $this->validateConfig('MaxRatio', $configuration, true)) {
             if ($ratio < $configuration['MaxRatio']) {
-                throw new ValidationException('Maximum ratio must be '.$configuration['MaxRatio']);
+                throw new ValidationException($this->translation->trans(
+                    'Maximum ratio must be %value%',
+                    array('%value%' => $configuration['MinRatio'])
+                ));
             }
         }
     }

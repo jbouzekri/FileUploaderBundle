@@ -17,11 +17,15 @@ services:
 
     jb_fileupload.image.validator:
         class: "%jb_fileupload.image.validator.class%"
+        arguments:
+            - @translator
         tags:
             - { name: jb_fileuploader.validator, alias: Image }
 
     jb_fileupload.crop.validator:
         class: "%jb_fileupload.image.crop.class%"
+        arguments:
+            - @translator
         tags:
             - { name: jb_fileuploader.validator, alias: Crop }
 
