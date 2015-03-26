@@ -1,2 +1,3 @@
-excluded_paths:
-    - Resources/public/lib/*
+filter:
+    excluded_paths:
+        - Resources/public/lib/*
