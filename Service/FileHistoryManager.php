@@ -48,7 +48,7 @@ class FileHistoryManager implements FileHistoryManagerInterface
      *
      * @param ObjectManager $em
      * @param SecurityContext $securityContext
-     * @param \Jb\Bundle\FileUploaderBundle\Service\ResolverChain $imagine
+     * @param \Jb\Bundle\FileUploaderBundle\Service\ResolverChain $resolvers
      * @param \Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration $configuration
      */
     public function __construct(
@@ -111,7 +111,7 @@ class FileHistoryManager implements FileHistoryManagerInterface
         $resolver = $this->resolvers->getResolver(
             $this->configuration->getValue($fileHistory->getType(), $resolverType)
         );
-        return $resolver->getUrl($fileHistory->getFilename(), $fileHistory->getType());
+        return $resolver->getUrl($fileHistory->getFilename());
     }
 
     /**

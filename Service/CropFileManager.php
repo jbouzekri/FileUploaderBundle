@@ -66,7 +66,6 @@ class CropFileManager
     /**
      * Transform the file
      *
-     * @param string $endpoint
      * @param array $data
      *
      * @return \Liip\ImagineBundle\Binary\BinaryInterface

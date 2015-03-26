@@ -25,7 +25,7 @@ interface FileHistoryManagerInterface
      * @param string $type
      * @param int $userId
      *
-     * @return FileHistory
+     * @return \Jb\Bundle\FileUploaderBundle\Entity\FileHistory
      */
     public function createAndSave($fileName, $originalName, $type, $userId = null);
 
@@ -37,7 +37,7 @@ interface FileHistoryManagerInterface
      * @param string $type
      * @param int $userId
      *
-     * @return FileHistory
+     * @return \Jb\Bundle\FileUploaderBundle\Entity\FileHistory
      */
     public function create($fileName, $originalName, $type, $userId);
 
@@ -46,7 +46,7 @@ interface FileHistoryManagerInterface
      *
      * @param string $fileName
      *
-     * @return FileHistory
+     * @return \Jb\Bundle\FileUploaderBundle\Entity\FileHistory
      */
     public function findOneByFileName($fileName);
 }
