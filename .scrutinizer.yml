@@ -1,3 +1,2 @@
-uded_paths:
+excluded_paths:
     - Resources/public/lib/*
-
