@@ -1,6 +1,8 @@
 JbFileUploaderBundle
 ====================
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/fc4abd08-89d9-45cd-bbae-9bda5d39ed97/mini.png)](https://insight.sensiolabs.com/projects/fc4abd08-89d9-45cd-bbae-9bda5d39ed97)
+
 This bundle aggregates the following bundles to provides ajax file upload with crop and validation :
 * [OneupUploaderBundle](https://github.com/1up-lab/OneupUploaderBundle) : server implementation for file upload
 * [KnpGaufretteBundle](https://github.com/KnpLabs/KnpGaufretteBundle) : Filesystem abstraction to store file on different support
