@@ -2,11 +2,7 @@
 
 namespace Jb\Bundle\FileUploaderBundle\Service\Imagine;
 
-use Aws\S3\Enum\CannedAcl;
 use Aws\S3\S3Client;
-use Liip\ImagineBundle\Binary\BinaryInterface;
-use Liip\ImagineBundle\Exception\Imagine\Cache\Resolver\NotStorableException;
-use Psr\Log\LoggerInterface;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\AwsS3Resolver as BaseAwsS3Resolver;
 
 class AwsS3Resolver extends BaseAwsS3Resolver

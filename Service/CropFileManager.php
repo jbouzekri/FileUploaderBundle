@@ -74,7 +74,7 @@ class CropFileManager
     public function transformFile(array $data)
     {
         return $this->filterManager->apply(
-            $binaryFile = $this->dataManager->find('original', $data['filename']),
+            $this->dataManager->find('original', $data['filename']),
             array(
                 'filters' => array(
                     'crop'=> array(

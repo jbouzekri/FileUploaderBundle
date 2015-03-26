@@ -11,7 +11,6 @@
 namespace Jb\Bundle\FileUploaderBundle\Service\Resolver;
 
 use Symfony\Component\Templating\Helper\CoreAssetsHelper;
-use Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration;
 
 /**
  * AssetsResolver
