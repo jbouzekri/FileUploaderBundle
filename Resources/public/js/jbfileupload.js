@@ -6,7 +6,7 @@
         return this.each(function() {
 
             // Find parent div to allow select of all important children element
-            var $parentTag = $(this).closest('.file-upload'),
+            var $parentTag = $(this).closest('.jb_fileupload_row'),
                 $resultError = $parentTag.find('.jb_result_error'),
                 $cropTool = $parentTag.find('.jb_crop_tool'),
                 $cropUpload = $parentTag.find('.jb_crop_upload'),

@@ -7,12 +7,12 @@ File without preview
 --------------------
 
 ``` html
-<div id="test_row" class="file-upload">
+<div id="test_row" class="jb_fileupload_row">
     <div class="alert alert-danger jb_result_error" style="display: none;"></div>
     <label for="test" class="required">Test</label>
     <span class="fileinput-button">
         <span><a href="#importFile">Import a file</a></span>
-        <input class="jb_fileupload" type="file" name="test" data-url="/app_dev.php/_uploader/gallery/upload" data-row-id="test_row" data-use-crop="false">
+        <input class="jb_fileupload" type="file" name="test" data-url="/app_dev.php/_uploader/gallery/upload" data-use-crop="false">
     </span>
     <span> | </span>
     <span>
@@ -26,7 +26,7 @@ File without preview
 </div>
 ```
 
-* `.jb_fileupload[data-row-id]` : the attribut data-row-id indicated the parent div rom which we can find using jQuery all children having jb_* class
+* `.jb_fileupload_row` : this class is the starting point of the markup. Find query are done to find others child classes starting with jb_*
 * `.jb_result_error` : used to display error
 * `.fileinput-button` : used in css to hide the input file behind the upload file link
 * `.jb_fileupload` : the base class used to activate the jquery plugin. It must be place on the input file.
@@ -42,7 +42,7 @@ Image upload with preview
 -------------------------
 
 ``` html
-<div id="test_row" class="file-upload">
+<div id="test_row" class="jb_fileupload_row">
     <div class="alert alert-danger jb_result_error" style="display: none;"></div>
     <label for="test" class="required">Test2</label>
     <img class="jb_result_preview" src="/bundles/jbfileuploader/img/default.png" data-default="/bundles/jbfileuploader/img/default.png" width="100" />
@@ -50,7 +50,7 @@ Image upload with preview
 
     <span class="fileinput-button">
         <span><a href="#importFile">Import a file</a></span>
-        <input class="jb_fileupload" type="file" name="test_upload_file" data-url="/app_dev.php/_uploader/gallery/upload" data-row-id="test_row" data-use-crop="false">
+        <input class="jb_fileupload" type="file" name="test_upload_file" data-url="/app_dev.php/_uploader/gallery/upload" data-use-crop="false">
     </span>
     <span> | </span>
     <span>
@@ -72,7 +72,7 @@ Image upload with crop
 ----------------------
 
 ``` html
-<div id="test_upload_test_row" class="file-upload">
+<div id="test_upload_test_row" class="jb_fileupload_row">
     <div class="alert alert-danger jb_result_error" style="display: none;"></div>
     <label for="test_upload_test" class="required">Test</label>
     <div class="jb_crop_upload">
@@ -80,7 +80,7 @@ Image upload with crop
         <img class="jb_loading" src="/bundles/jbfileuploader/img/ajax-loader.gif" style="display: none;">
         <span class="fileinput-button">
             <span><a href="#importFile">Import a file</a></span>
-            <input class="jb_fileupload" type="file" name="test_upload_test_file" data-url="/app_dev.php/_uploader/gallery/upload" data-row-id="test_upload_test_row" data-use-crop="true">
+            <input class="jb_fileupload" type="file" name="test_upload_test_file" data-url="/app_dev.php/_uploader/gallery/upload" data-use-crop="true">
         </span>
         <span> | </span>
         <span>

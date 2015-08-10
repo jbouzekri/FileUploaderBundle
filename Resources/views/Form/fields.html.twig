@@ -1,10 +1,9 @@
 {#
-The id on the row and the attribute data-row-id are important. They are used in the js code.
-Same thing for all classes starting with jb_
+All classes starting with jb_ are part of the markup. They are used in the js code.
 #}
 
 {% block jb_file_ajax_row %}
-    <div id="{{ id }}_row" class="file-upload">
+    <div id="{{ id }}_row" class="jb_fileupload_row">
         <div class="alert alert-danger jb_result_error" style="display: none;"></div>
         {{- form_label(form) -}}
         {{- form_errors(form) -}}
@@ -20,7 +19,6 @@ Same thing for all classes starting with jb_
             type="file"
             name="{{ id }}_file"
             data-url="{{ oneup_uploader_endpoint(endpoint) }}"
-            data-row-id="{{ id }}_row"
             data-use-crop="{{ use_crop ? "true" : "false" }}" />
     </span>
     {% if remove_link %}
