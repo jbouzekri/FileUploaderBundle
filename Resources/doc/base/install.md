@@ -9,7 +9,7 @@ Add the bundle to your `composer.json` :
 ``` json
 {
     "require": {
-        "jbouzekri/file-uploader-bundle": "~2.0"
+        "jbouzekri/file-uploader-bundle": "~3.0"
     }
 }
 ```
