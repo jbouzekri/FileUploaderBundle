@@ -10,7 +10,7 @@
 
 namespace Jb\Bundle\FileUploaderBundle\Service\Resolver;
 
-use Symfony\Component\Templating\Helper\CoreAssetsHelper;
+use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
  * AssetsResolver
@@ -20,7 +20,7 @@ use Symfony\Component\Templating\Helper\CoreAssetsHelper;
 class AssetsResolver implements ResolverInterface
 {
     /**
-     * @var \Symfony\Component\Templating\Helper\CoreAssetsHelper
+     * @var \Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper
      */
     protected $helper;
 
@@ -35,7 +35,7 @@ class AssetsResolver implements ResolverInterface
      * @param CoreAssetsHelper $helper
      * @param string $directory
      */
-    public function __construct(CoreAssetsHelper $helper, $directory)
+    public function __construct(AssetsHelper $helper, $directory)
     {
         $this->helper = $helper;
         $this->directory = $directory;
