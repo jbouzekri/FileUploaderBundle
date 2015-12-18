@@ -9,39 +9,39 @@ parameters:
 
 services:
     jb_fileuploader.file_ajax.upload_listener:
-        class: %jb_fileuploader.file_ajax.upload_listener.class%
+        class: "%jb_fileuploader.file_ajax.upload_listener.class%"
         scope: request
         arguments:
-            - @jb_fileuploader.file_history.manager
+            - "@jb_fileuploader.file_history.manager"
         tags:
             - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
 
     jb_fileuploader.file_ajax.validation_listener:
-        class: %jb_fileuploader.file_ajax.validation_listener.class%
+        class: "%jb_fileuploader.file_ajax.validation_listener.class%"
         arguments:
-            - @jb_fileuploader.validator.manager
+            - "@jb_fileuploader.validator.manager"
         tags:
             - { name: kernel.event_listener, event: oneup_uploader.validation, method: onValidate }
 
     jb_fileuploader.file_history.manager:
-        class: %jb_fileuploader.file_history.manager.class%
+        class: "%jb_fileuploader.file_history.manager.class%"
         scope: request
         arguments:
-            - @doctrine.orm.entity_manager
-            - @security.context
-            - @jb_fileuploader.resolver_chain
-            - @jb_fileuploader.endpoint_configuration
+            - "@doctrine.orm.entity_manager"
+            - "@security.context"
+            - "@jb_fileuploader.resolver_chain"
+            - "@jb_fileuploader.endpoint_configuration"
 
     jb_fileuploader.endpoint_configuration:
-        class: %jb_fileuploader.endpoint_configuration.class%
+        class: "%jb_fileuploader.endpoint_configuration.class%"
         arguments:
-            - %jb_fileuploader.endpoints%
+            - "%jb_fileuploader.endpoints%"
 
     jb_fileuploader.twig_extension.crop:
-        class: %jb_fileuploader.twig_extension.crop.class%
+        class: "%jb_fileuploader.twig_extension.crop.class%"
         arguments:
-            - @router
-            - %jb_fileuploader.crop_route%
+            - "@router"
+            - "%jb_fileuploader.crop_route%"
         tags:
             - { name: twig.extension }
 
@@ -49,15 +49,15 @@ services:
         class: "%jb_fileuploader.croper.class%"
         scope: request
         arguments:
-            - @jb_fileuploader.crop.manager
-            - @jb_fileuploader.resolver_chain
-            - @jb_fileuploader.endpoint_configuration
-            - @jb_fileuploader.validator.manager
+            - "@jb_fileuploader.crop.manager"
+            - "@jb_fileuploader.resolver_chain"
+            - "@jb_fileuploader.endpoint_configuration"
+            - "@jb_fileuploader.validator.manager"
 
     jb_fileuploader.crop.manager:
         class: "%jb_fileuploader.crop.manager.class%"
         arguments:
-            - @liip_imagine.data.manager
-            - @liip_imagine.filter.manager
-            - @knp_gaufrette.filesystem_map
-            - @jb_fileuploader.endpoint_configuration
+            - "@liip_imagine.data.manager"
+            - "@liip_imagine.filter.manager"
+            - "@knp_gaufrette.filesystem_map"
+            - "@jb_fileuploader.endpoint_configuration"
