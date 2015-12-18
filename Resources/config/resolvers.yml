@@ -1,29 +1,25 @@
 parameters:
-    jb_fileuploader.resolver.asset.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\AssetsResolver
-    jb_fileuploader.resolver.aws3.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\Aws3Resolver
-    jb_fileuploader.resolver_chain.class: Jb\Bundle\FileUploaderBundle\Service\ResolverChain
-    jb_fileuploader.resolver.imagine.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\ImagineCacheManagerResolver
-
+  jb_fileuploader.resolver.asset.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\AssetsResolver
+  jb_fileuploader.resolver.aws3.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\Aws3Resolver
+  jb_fileuploader.resolver.imagine.prototype.class: Jb\Bundle\FileUploaderBundle\Service\Resolver\ImagineCacheManagerResolver
+  jb_fileuploader.resolver_chain.class: Jb\Bundle\FileUploaderBundle\Service\ResolverChain
 services:
-    jb_fileuploader.resolver.aws3.prototype:
-        class: %jb_fileuploader.resolver.aws3.prototype.class%
-        scope: request
-        abstract: true
-
-    jb_fileuploader.resolver.asset.prototype:
-        class: %jb_fileuploader.resolver.asset.prototype.class%
-        scope: request
-        arguments:
-            - @templating.helper.assets
-        abstract: true
-
-    jb_fileuploader.resolver.imagine.prototype:
-        class: %jb_fileuploader.resolver.imagine.prototype.class%
-        scope: request
-        arguments:
-            - @liip_imagine.cache.manager
-        abstract: true
-
-    jb_fileuploader.resolver_chain:
-        class: "%jb_fileuploader.resolver_chain.class%"
-        scope: request
+  jb_fileuploader.resolver.asset.prototype:
+    abstract: true
+    arguments:
+      - "@templating.helper.assets"
+    class: "%jb_fileuploader.resolver.asset.prototype.class%"
+    scope: request
+  jb_fileuploader.resolver.aws3.prototype:
+    abstract: true
+    class: "%jb_fileuploader.resolver.aws3.prototype.class%"
+    scope: request
+  jb_fileuploader.resolver.imagine.prototype:
+    abstract: true
+    arguments:
+      - "@liip_imagine.cache.manager"
+    class: "%jb_fileuploader.resolver.imagine.prototype.class%"
+    scope: request
+  jb_fileuploader.resolver_chain:
+    class: "%jb_fileuploader.resolver_chain.class%"
+    scope: request
