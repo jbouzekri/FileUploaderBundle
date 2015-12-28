@@ -9,8 +9,8 @@ services:
     jb_fileuploader.validator.manager:
         class: "%jb_fileuploader.validator.manager.class%"
         arguments:
-            - @jb_fileuploader.validator_chain
-            - @jb_fileuploader.endpoint_configuration
+            - "@jb_fileuploader.validator_chain"
+            - "@jb_fileuploader.endpoint_configuration"
 
     jb_fileuploader.validator_chain:
         class: "%jb_fileuploader.validator_chain.class%"
@@ -26,9 +26,9 @@ services:
             - { name: jb_fileuploader.validator, alias: Crop }
 
     jb_fileupload.file_owner.validator:
-        class: %jb_fileupload.file_owner.validator.class%
+        class: "%jb_fileupload.file_owner.validator.class%"
         arguments:
-            - @doctrine.orm.entity_manager
-            - @security.token_storage
+            - "@doctrine.orm.entity_manager"
+            - "@security.token_storage"
         tags:
             - { name: validator.constraint_validator, alias: jb_file_owner }
