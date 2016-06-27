@@ -15,11 +15,11 @@ All classes starting with jb_ are part of the markup. They are used in the js co
     <span class="fileinput-button">
         <span><a href="#importFile">{{ 'Import a file'|trans({}, translation_domain) }}</a></span>
         <input
-            class="jb_fileupload"
-            type="file"
-            name="{{ id }}_file"
-            data-url="{{ oneup_uploader_endpoint(endpoint) }}"
-            data-use-crop="{{ use_crop ? "true" : "false" }}" />
+                class="jb_fileupload"
+                type="file"
+                name="{{ id }}_file"
+                data-url="{{ oneup_uploader_endpoint(endpoint) }}"
+                data-use-crop="{{ use_crop ? "true" : "false" }}" />
     </span>
     {% if remove_link %}
         <span> | </span>
@@ -38,9 +38,15 @@ All classes starting with jb_ are part of the markup. They are used in the js co
         {% endif %}
     {% endif %}
     {% if loading_generated is not defined %}
-        <img class="jb_loading"
-             src="{{ asset(loading_file) }}"
-             style="display: none;" />
+        {% if (progress is not defined) or (progress == false)%}
+            <img class="jb_loading"
+                 src="{{ asset(loading_file) }}"
+                 style="display: none;" />
+        {% else %}
+            <div class="jb_progressbar" style="display:none;">
+                <div class="jb_bar"></div>
+            </div>
+        {% endif %}
     {% endif %}
 {% endblock %}
 
@@ -54,7 +60,7 @@ All classes starting with jb_ are part of the markup. They are used in the js co
          src="{{ previewSrc }}"
          data-default="{{ asset(default_image) }}"
          {% if img_width is defined %}width="{{ img_width }}"{% endif %}
-         {% if img_height is defined %}height="{{ img_height }}"{% endif %} />
+            {% if img_height is defined %}height="{{ img_height }}"{% endif %} />
 
     <img class="jb_loading"
          src="{{ asset(loading_file) }}"
