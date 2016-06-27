@@ -14,4 +14,5 @@ The available options are :
 * endpoint (_mandatory_) : a oneup fileupload mapping name
 * download_link (_boolean_) : show the download link when the upload was successful
 * remove_link (_boolean_) : show a remove link allowing to empty the field
+* progress (_boolean_) : show a progress bar
 

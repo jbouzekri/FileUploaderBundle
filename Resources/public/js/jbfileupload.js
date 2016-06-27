@@ -18,15 +18,16 @@
                 $cropFilename = $parentTag.find('.jb_crop_filename'),
                 $previewTag = $parentTag.find('.jb_result_preview'),
                 $loadingTag = $parentTag.find('.jb_loading'),
+                $progressBar = $parentTag.find('.jb_progressbar'),
                 naturalWidth, naturalHeight, currentWidth, currentHeight;
 
             /**
-            * Translate message
-            *
-            * @param {string} msg
-            *
-            * @returns {string}
-            */
+             * Translate message
+             *
+             * @param {string} msg
+             *
+             * @returns {string}
+             */
             function translateMessage(msg) {
                 if (typeof Translator !== "undefined") {
                     return Translator.trans(msg);
@@ -35,11 +36,11 @@
                 return msg;
             }
 
-           /**
-            * Toggle the upload field and crop tool
-            *
-            * @returns {undefined}
-            */
+            /**
+             * Toggle the upload field and crop tool
+             *
+             * @returns {undefined}
+             */
             function toggleCropingTool() {
                 $cropUpload.toggle();
                 $cropTool.toggle();
@@ -49,13 +50,13 @@
                 $cropHeight.val('');
             }
 
-           /**
-            * Load the crop tool
-            *
-            * @param {object} result
-            *
-            * @returns {undefined}
-            */
+            /**
+             * Load the crop tool
+             *
+             * @param {object} result
+             *
+             * @returns {undefined}
+             */
             function loadCropingTool(result) {
                 // Display the crop tool
                 toggleCropingTool();
@@ -163,6 +164,7 @@
              */
             function loadingToggle(e) {
                 $loadingTag.toggle();
+                $progressBar.toggle();
                 $previewTag.toggle();
             }
 
@@ -172,7 +174,14 @@
                 dataType: 'json',
                 done: fileUploadDone,
                 error: fileUploadError,
-                start: loadingToggle
+                start: loadingToggle,
+                progressall: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $progressBar.find('.jb_bar').css(
+                        'width',
+                        progress + '%'
+                    );
+                }
             }, options );
 
             // Bind all events

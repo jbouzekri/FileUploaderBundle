@@ -25,7 +25,7 @@ class FileAjaxType extends AbstractType
      * @var FileHistoryManagerInterface
      */
     protected $fileHistoryManager;
-
+    
     /**
      * Constructor
      *
@@ -35,7 +35,7 @@ class FileAjaxType extends AbstractType
     {
         $this->fileHistoryManager = $fileHistoryManager;
     }
-
+    
     /**
      * {@inheritDoc}
      */
@@ -43,22 +43,24 @@ class FileAjaxType extends AbstractType
     {
         // Endpoint mandatory for fileupload bundle
         $resolver->setRequired(array('endpoint'));
-
+        
         $resolver->setOptional(array(
             'download_link',
             'remove_link',
             'loading_file',
-            'resolver_key'
+            'resolver_key',
+            'progress'
         ));
-
+        
         $resolver->setDefaults(array(
             'download_link' => true,
             'remove_link' => true,
             'loading_file' => 'bundles/jbfileuploader/img/ajax-loader-small.gif',
-            'resolver_key' => 'upload_resolver'
+            'resolver_key' => 'upload_resolver',
+            'progress'=>false
         ));
     }
-
+    
     /**
      * {@inheritDoc}
      */
@@ -70,23 +72,24 @@ class FileAjaxType extends AbstractType
             $fileHistory = $this->fileHistoryManager->findOneByFileName($form->getData());
             $fileHistoryUrl = $this->fileHistoryManager->getUrl($fileHistory, $options['resolver_key']);
         }
-
+        
         $className = 'jb_result_filename';
         if (isset($view->vars['attr']['class'])) {
             $view->vars['attr']['class'] .= ' ' . $className;
         } else {
             $view->vars['attr']['class'] = $className;
         }
-
+        
         $view->vars['file_history'] = $fileHistory;
         $view->vars['file_history_url'] = $fileHistoryUrl;
         $view->vars['endpoint'] = $options['endpoint'];
         $view->vars['download_link'] = $options['download_link'];
         $view->vars['remove_link'] = $options['remove_link'];
         $view->vars['loading_file'] = $options['loading_file'];
+        $view->vars['progress'] = $options['progress'];
         $view->vars['use_crop'] = false;
     }
-
+    
     /**
      * {@inheritDoc}
      */
@@ -94,7 +97,7 @@ class FileAjaxType extends AbstractType
     {
         return 'text';
     }
-
+    
     /**
      * {@inheritDoc}
      */

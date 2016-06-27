@@ -9,3 +9,16 @@
 .fileinput-button:hover a {
     text-decoration: underline;
 }
+
+.jb_progressbar {
+    width: 100%;
+    height: 15px;
+    border: 1px solid #111;
+    margin-top: 3px;
+}
+
+.jb_bar {
+    width: 0;
+    background-color: #111;
+    height: 15px;
+}
