@@ -8,9 +8,6 @@
  * @link https://github.com/jbouzekri/FileUploaderBundle
  */
 
-/**
- * @namespace
- */
 namespace Jb\Bundle\FileUploaderBundle\DependencyInjection\ResolverFactory;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -18,9 +15,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 
 /**
- * AssetsResolverFactory
+ * Class AssetsResolverFactory
  *
- * @author jobou
+ * @package Jb\Bundle\FileUploaderBundle\DependencyInjection\ResolverFactory
  */
 class AssetsResolverFactory implements ResolverFactoryInterface
 {

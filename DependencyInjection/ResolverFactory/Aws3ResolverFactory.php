@@ -19,9 +19,10 @@ use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Aws3ResolverFactory
+ * Class Aws3ResolverFactory
  *
  * @author jobou
+ * @package Jb\Bundle\FileUploaderBundle\DependencyInjection\ResolverFactory
  */
 class Aws3ResolverFactory implements ResolverFactoryInterface
 {

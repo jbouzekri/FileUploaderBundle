@@ -16,7 +16,8 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * FileAjaxType
+ * Class ImageAjaxType
+ * @package Jb\Bundle\FileUploaderBundle\Form\Type
  */
 class ImageAjaxType extends AbstractType
 {
@@ -61,14 +62,6 @@ class ImageAjaxType extends AbstractType
      */
     public function getParent()
     {
-        return 'jb_file_ajax';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return 'jb_image_ajax';
+        return FileAjaxType::class;
     }
 }

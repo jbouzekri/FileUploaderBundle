@@ -11,7 +11,8 @@
 namespace Jb\Bundle\FileUploaderBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Jb\Bundle\FileUploaderBundle\Service\FileHistoryManagerInterface;
@@ -29,7 +30,7 @@ class FileAjaxType extends AbstractType
     /**
      * Constructor
      *
-     * @param \Jb\Bundle\FileUploaderBundle\Form\Type\FileHistoryManagerInterface $fileHistoryManager
+     * @param FileHistoryManagerInterface $fileHistoryManager
      */
     public function __construct(FileHistoryManagerInterface $fileHistoryManager)
     {
@@ -39,12 +40,12 @@ class FileAjaxType extends AbstractType
     /**
      * {@inheritDoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         // Endpoint mandatory for fileupload bundle
         $resolver->setRequired(array('endpoint'));
         
-        $resolver->setOptional(array(
+        $resolver->setDefined(array(
             'download_link',
             'remove_link',
             'loading_file',
@@ -95,14 +96,6 @@ class FileAjaxType extends AbstractType
      */
     public function getParent()
     {
-        return 'text';
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return 'jb_file_ajax';
+        return TextType::class;
     }
 }

@@ -32,7 +32,7 @@ class AssetsResolver implements ResolverInterface
     /**
      * Constructor
      *
-     * @param CoreAssetsHelper $helper
+     * @param AssetsHelper $helper
      * @param string $directory
      */
     public function __construct(AssetsHelper $helper, $directory)
