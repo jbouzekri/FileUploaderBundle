@@ -28,7 +28,7 @@ services:
         scope: request
         arguments:
             - "@doctrine.orm.entity_manager"
-            - "@security.context"
+            - "@security.token_storage"
             - "@jb_fileuploader.resolver_chain"
             - "@jb_fileuploader.endpoint_configuration"
 

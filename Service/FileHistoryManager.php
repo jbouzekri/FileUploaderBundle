@@ -12,6 +12,7 @@ namespace Jb\Bundle\FileUploaderBundle\Service;
 
 use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 use Jb\Bundle\FileUploaderBundle\Service\ResolverChain;
 use Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration;
@@ -29,9 +30,9 @@ class FileHistoryManager implements FileHistoryManagerInterface
     protected $em;
 
     /**
-     * @var \Symfony\Component\Security\Core\SecurityContext
+     * @var TokenStorageInterface
      */
-    protected $securityContext;
+    protected $tokenStorage;
 
     /**
      * @var \Jb\Bundle\FileUploaderBundle\Service\ResolverChain
@@ -47,20 +48,20 @@ class FileHistoryManager implements FileHistoryManagerInterface
      * Constructor
      *
      * @param ObjectManager $em
-     * @param SecurityContext $securityContext
+     * @param TokenStorageInterface $tokenStorage
      * @param \Jb\Bundle\FileUploaderBundle\Service\ResolverChain $resolvers
      * @param \Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration $configuration
      */
     public function __construct(
-        ObjectManager $em,
-        SecurityContext $securityContext,
-        ResolverChain $resolvers,
-        EndpointConfiguration $configuration
+        ObjectManager           $em,
+        TokenStorageInterface   $tokenStorage,
+        ResolverChain           $resolvers,
+        EndpointConfiguration   $configuration
     ) {
-        $this->em = $em;
-        $this->securityContext = $securityContext;
-        $this->resolvers = $resolvers;
-        $this->configuration = $configuration;
+        $this->em               = $em;
+        $this->tokenStorage     = $tokenStorage;
+        $this->resolvers        = $resolvers;
+        $this->configuration    = $configuration;
     }
 
     /**
@@ -121,7 +122,7 @@ class FileHistoryManager implements FileHistoryManagerInterface
      */
     protected function getAuthUserId()
     {
-        $token = $this->securityContext->getToken();
+        $token = $this->tokenStorage->getToken();
         if (null === $token) {
             return;
         }
