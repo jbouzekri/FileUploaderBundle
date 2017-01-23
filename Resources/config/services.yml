@@ -10,7 +10,7 @@ parameters:
 services:
     jb_fileuploader.file_ajax.upload_listener:
         class: "%jb_fileuploader.file_ajax.upload_listener.class%"
-        scope: request
+        shared: false
         arguments:
             - "@jb_fileuploader.file_history.manager"
         tags:
@@ -25,7 +25,7 @@ services:
 
     jb_fileuploader.file_history.manager:
         class: "%jb_fileuploader.file_history.manager.class%"
-        scope: request
+        shared: false
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@security.token_storage"
@@ -47,7 +47,7 @@ services:
 
     jb_fileuploader.croper:
         class: "%jb_fileuploader.croper.class%"
-        scope: request
+        shared: false
         arguments:
             - "@jb_fileuploader.crop.manager"
             - "@jb_fileuploader.resolver_chain"
