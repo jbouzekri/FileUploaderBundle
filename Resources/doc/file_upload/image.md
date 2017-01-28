@@ -4,7 +4,10 @@ Image file upload
 This form type provides file upload optimized for image.
 
 ~~~ php
-$builder->add('image', 'jb_image_ajax', array(
+use Jb\Bundle\FileUploaderBundle\Form\Type\ImageAjaxType;
+
+...
+$builder->add('image', ImageAjaxType::class, array(
     'endpoint' => 'my_endpoint_name'
 ));
 ~~~

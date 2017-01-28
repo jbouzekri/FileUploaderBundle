@@ -113,7 +113,10 @@ Reference
 This form type provides file upload optimized for image with a crop function based on [jquery jcrop plugin](http://github.com/tapmodo/Jcrop).
 
 ~~~ php
-$builder->add('cropedImage', 'jb_crop_image_ajax', array(
+use Jb\Bundle\FileUploaderBundle\Form\Type\CropImageAjaxType;
+
+...
+$builder->add('cropedImage', CropImageAjaxType::class, array(
     'endpoint' => 'my_endpoint_name',
 ));
 ~~~
