@@ -80,11 +80,11 @@ All classes starting with jb_ are part of the markup. They are used in the js co
         {% if reset_button %}
             <button type="button" class="jb_crop_reset">{{ reset_button_label|trans({}, translation_domain) }}</button>
         {% endif %}
-        <input type="hidden" class="jb_crop_field jb_crop_x" name="jb_fileuploader_crop[x]" value="" />
-        <input type="hidden" class="jb_crop_field jb_crop_y" name="jb_fileuploader_crop[y]" value="" />
-        <input type="hidden" class="jb_crop_field jb_crop_width" name="jb_fileuploader_crop[width]" value="" />
-        <input type="hidden" class="jb_crop_field jb_crop_height" name="jb_fileuploader_crop[height]" value="" />
-        <input type="hidden" class="jb_crop_field jb_crop_filename" name="jb_fileuploader_crop[filename]" value="" />
+        <input type="hidden" class="jb_crop_field jb_crop_x" name="crop[x]" value="" nehaber="bebk"/>
+        <input type="hidden" class="jb_crop_field jb_crop_y" name="crop[y]" value="" />
+        <input type="hidden" class="jb_crop_field jb_crop_width" name="crop[width]" value="" />
+        <input type="hidden" class="jb_crop_field jb_crop_height" name="crop[height]" value="" />
+        <input type="hidden" class="jb_crop_field jb_crop_filename" name="crop[filename]" value="" />
     </div>
 {% endblock %}
 
