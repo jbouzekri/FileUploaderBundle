@@ -93,7 +93,7 @@ knp_gaufrette:
     adapters:
         image:
             local:
-                directory: ""%kernel.root_dir%/../web/uploads"
+                directory: "%kernel.root_dir%/../web/uploads"
                 create: true
     filesystems:
         image:

@@ -91,9 +91,8 @@ This bundle provides form fields. You must load their HTML layout. In `app/confi
 
 ```
 twig:
-    form:
-        resources:
-            - 'JbFileUploaderBundle:Form:fields.html.twig'
+    form_themes:
+        - 'JbFileUploaderBundle:Form:fields.html.twig'
 ```
 
 File metadata storage
