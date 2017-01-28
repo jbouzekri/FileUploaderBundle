@@ -10,7 +10,6 @@ parameters:
 services:
     jb_fileuploader.file_ajax.upload_listener:
         class: "%jb_fileuploader.file_ajax.upload_listener.class%"
-        shared: false
         arguments:
             - "@jb_fileuploader.file_history.manager"
         tags:
