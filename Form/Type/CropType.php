@@ -12,6 +12,7 @@ namespace Jb\Bundle\FileUploaderBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -54,7 +55,7 @@ class CropType extends AbstractType
                     new Range(['min' => 0]),
                 ]
             ])
-            ->add('filename', IntegerType::class, [
+            ->add('filename', TextType::class, [
                 'constraints' => [
                     new NotBlank(),
                 ]
