@@ -11,9 +11,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 
 /**
- * CdnResolverFactory
+ * Class CdnResolverFactory
  *
  * @author jobou
+ * @package Jb\Bundle\FileUploaderBundle\DependencyInjection\ResolverFactory
  */
 class CdnResolverFactory implements ResolverFactoryInterface
 {
@@ -44,7 +45,7 @@ class CdnResolverFactory implements ResolverFactoryInterface
     {
         $container
             ->setDefinition($id, new DefinitionDecorator('jb_fileuploader.resolver.cdn.prototype'))
-            ->setScope('request')
+            ->setShared(false)
             ->addArgument($config['url'])
         ;
     }

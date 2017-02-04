@@ -4,7 +4,10 @@ Simple file upload
 This is the simplest upload field type. It shows an upload link and can display the uploaded filename with a download link when the upload was successful.
 
 ~~~ php
-$builder->add('file', 'jb_file_ajax', array(
+
+use Jb\Bundle\FileUploaderBundle\Form\Type\FileAjaxType;
+
+$builder->add('file', FileAjaxType::class, array(
     'endpoint' => 'my_endpoint_name'
 ));
 ~~~

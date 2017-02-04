@@ -2,7 +2,7 @@
 All classes starting with jb_ are part of the markup. They are used in the js code.
 #}
 
-{% block jb_file_ajax_row %}
+{% block file_ajax_row %}
     <div id="{{ id }}_row" class="jb_fileupload_row">
         <div class="alert alert-danger jb_result_error" style="display: none;"></div>
         {{- form_label(form) -}}
@@ -11,7 +11,7 @@ All classes starting with jb_ are part of the markup. They are used in the js co
     </div>
 {% endblock %}
 
-{% block jb_file_ajax_widget %}
+{% block file_ajax_widget %}
     <span class="fileinput-button">
         <span><a href="#importFile">{{ 'Import a file'|trans({}, translation_domain) }}</a></span>
         <input
@@ -50,7 +50,7 @@ All classes starting with jb_ are part of the markup. They are used in the js co
     {% endif %}
 {% endblock %}
 
-{% block jb_image_ajax_widget %}
+{% block image_ajax_widget %}
     {% set previewSrc = asset(default_image) %}
     {% if file_history is not null %}
         {% set previewSrc = file_history_url %}
@@ -67,12 +67,12 @@ All classes starting with jb_ are part of the markup. They are used in the js co
          style="display: none;" />
 
     {% set loading_generated = true %}
-    {{ block('jb_file_ajax_widget') }}
+    {{ block('file_ajax_widget') }}
 {% endblock %}
 
-{% block jb_crop_image_ajax_widget %}
+{% block crop_image_ajax_widget %}
     <div class="jb_crop_upload">
-        {{ block('jb_image_ajax_widget') }}
+        {{ block('image_ajax_widget') }}
     </div>
     <div class="jb_crop_tool" style="display: none;">
         <img class="jb_crop_img" src="" {{ block('jb_crop_attributes') }} style="max-width: {{ max_width }}px; max-height: {{ max_height }}px;"/>
@@ -80,11 +80,11 @@ All classes starting with jb_ are part of the markup. They are used in the js co
         {% if reset_button %}
             <button type="button" class="jb_crop_reset">{{ reset_button_label|trans({}, translation_domain) }}</button>
         {% endif %}
-        <input type="hidden" class="jb_crop_field jb_crop_x" name="jb_fileuploader_crop[x]" value="" />
-        <input type="hidden" class="jb_crop_field jb_crop_y" name="jb_fileuploader_crop[y]" value="" />
-        <input type="hidden" class="jb_crop_field jb_crop_width" name="jb_fileuploader_crop[width]" value="" />
-        <input type="hidden" class="jb_crop_field jb_crop_height" name="jb_fileuploader_crop[height]" value="" />
-        <input type="hidden" class="jb_crop_field jb_crop_filename" name="jb_fileuploader_crop[filename]" value="" />
+        <input type="hidden" class="jb_crop_field jb_crop_x" name="crop[x]" value="" nehaber="bebk"/>
+        <input type="hidden" class="jb_crop_field jb_crop_y" name="crop[y]" value="" />
+        <input type="hidden" class="jb_crop_field jb_crop_width" name="crop[width]" value="" />
+        <input type="hidden" class="jb_crop_field jb_crop_height" name="crop[height]" value="" />
+        <input type="hidden" class="jb_crop_field jb_crop_filename" name="crop[filename]" value="" />
     </div>
 {% endblock %}
 

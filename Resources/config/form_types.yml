@@ -3,10 +3,11 @@ parameters:
   jb_fileuploader.form.type.crop_image_ajax.class: Jb\Bundle\FileUploaderBundle\Form\Type\CropImageAjaxType
   jb_fileuploader.form.type.file_ajax.class: Jb\Bundle\FileUploaderBundle\Form\Type\FileAjaxType
   jb_fileuploader.form.type.image_ajax.class: Jb\Bundle\FileUploaderBundle\Form\Type\ImageAjaxType
-services: 
+
+services:
   jb_fileuploader.form.type.crop: 
     class: "%jb_fileuploader.form.type.crop.class%"
-    tags: 
+    tags:
       - 
         alias: jb_fileuploader_crop
         name: form.type

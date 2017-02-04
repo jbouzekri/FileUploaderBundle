@@ -58,9 +58,9 @@ class CropExtension extends \Twig_Extension
     /**
      * Get crop endpoint url
      *
-     * @param string $endpoint
+     * @param $endpoint
      * @param array $parameters
-     * @param bool $absolute
+     * @param int $absolute
      *
      * @return string
      */

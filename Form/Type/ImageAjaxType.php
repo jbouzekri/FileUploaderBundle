@@ -11,21 +11,23 @@
 namespace Jb\Bundle\FileUploaderBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * FileAjaxType
+ * Class ImageAjaxType
+ * @package Jb\Bundle\FileUploaderBundle\Form\Type
  */
 class ImageAjaxType extends AbstractType
 {
     /**
      * {@inheritDoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setOptional(array(
+        $resolver->setDefined(array(
             'default_image',
             'img_width',
             'img_height'
@@ -61,14 +63,6 @@ class ImageAjaxType extends AbstractType
      */
     public function getParent()
     {
-        return 'jb_file_ajax';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return 'jb_image_ajax';
+        return FileAjaxType::class;
     }
 }

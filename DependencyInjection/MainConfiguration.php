@@ -13,6 +13,7 @@ namespace Jb\Bundle\FileUploaderBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 
 /**
  * JbFileUploaderBundle configuration structure.
@@ -98,6 +99,8 @@ class MainConfiguration implements ConfigurationInterface
 
     /**
      * Add a custom validator key to configuration
+     *
+     * @param $key
      *
      * @param string $key
      *

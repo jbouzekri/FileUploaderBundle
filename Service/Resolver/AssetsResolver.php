@@ -11,6 +11,7 @@
 namespace Jb\Bundle\FileUploaderBundle\Service\Resolver;
 
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
+use Symfony\Component\Asset\Packages;
 
 /**
  * AssetsResolver
@@ -20,9 +21,9 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 class AssetsResolver implements ResolverInterface
 {
     /**
-     * @var \Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper
+     * @var Packages
      */
-    protected $helper;
+    protected $assetPackages;
 
     /**
      * @var string
@@ -30,14 +31,13 @@ class AssetsResolver implements ResolverInterface
     protected $directory;
 
     /**
-     * Constructor
-     *
-     * @param CoreAssetsHelper $helper
-     * @param string $directory
+     * AssetsResolver constructor.
+     * @param Packages $assetPackages
+     * @param $directory
      */
-    public function __construct(AssetsHelper $helper, $directory)
+    public function __construct(Packages $assetPackages, $directory)
     {
-        $this->helper = $helper;
+        $this->assetPackages = $assetPackages;
         $this->directory = $directory;
     }
 
@@ -46,7 +46,7 @@ class AssetsResolver implements ResolverInterface
      */
     public function getUrl($key)
     {
-        return $this->helper->getUrl(
+        return $this->assetPackages->getUrl(
             trim($this->directory, '/') . '/' . $key
         );
     }

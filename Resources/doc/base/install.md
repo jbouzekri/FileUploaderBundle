@@ -91,9 +91,8 @@ This bundle provides form fields. You must load their HTML layout. In `app/confi
 
 ```
 twig:
-    form:
-        resources:
-            - 'JbFileUploaderBundle:Form:fields.html.twig'
+    form_themes:
+        - 'JbFileUploaderBundle:Form:fields.html.twig'
 ```
 
 File metadata storage
@@ -104,7 +103,7 @@ The bundle stores some metadata in a table to keep trace of original file name o
 Run the doctrine schema update command to create the table.
 
 ```
-php app/console doctrine:schema:update --force
+php bin/console doctrine:schema:update --force
 ```
 
 Install assets
@@ -113,7 +112,7 @@ Install assets
 The bundle and its dependencies provide some assets. Do not forget to run the assets install command :
 
 ```
-php app/console assets:install web --symlink
+php bin/console assets:install web --symlink
 ```
 
 Load assets

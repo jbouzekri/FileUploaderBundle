@@ -10,26 +10,29 @@
 
 namespace Jb\Bundle\FileUploaderBundle\Controller;
 
+use Jb\Bundle\FileUploaderBundle\Form\Type\CropType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * CropController
  *
  * @author jobou
  */
-class CropController extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
+class CropController extends Controller
 {
     /**
      * Filter for croping
      *
      * @param Request $request
+     * @param string $endpoint
      *
      * @return JsonResponse
      */
     public function filterAction(Request $request, $endpoint)
     {
-        $form = $this->createForm('jb_fileuploader_crop');
+        $form = $this->createForm(CropType::class);
 
         $form->handleRequest($request);
 
