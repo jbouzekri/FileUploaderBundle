@@ -48,7 +48,6 @@ class AssetsResolverFactory implements ResolverFactoryInterface
     {
         $container
             ->setDefinition($id, new DefinitionDecorator('jb_fileuploader.resolver.asset.prototype'))
-            ->setShared(false)
             ->addArgument($config['directory'])
         ;
     }

@@ -24,7 +24,6 @@ services:
 
     jb_fileuploader.file_history.manager:
         class: "%jb_fileuploader.file_history.manager.class%"
-        shared: false
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@security.token_storage"
@@ -46,7 +45,6 @@ services:
 
     jb_fileuploader.croper:
         class: "%jb_fileuploader.croper.class%"
-        shared: false
         arguments:
             - "@jb_fileuploader.crop.manager"
             - "@jb_fileuploader.resolver_chain"

@@ -45,7 +45,6 @@ class CdnResolverFactory implements ResolverFactoryInterface
     {
         $container
             ->setDefinition($id, new DefinitionDecorator('jb_fileuploader.resolver.cdn.prototype'))
-            ->setShared(false)
             ->addArgument($config['url'])
         ;
     }

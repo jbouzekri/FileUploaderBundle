@@ -1,38 +1,38 @@
-parameters: 
+parameters:
   jb_fileuploader.form.type.crop.class: Jb\Bundle\FileUploaderBundle\Form\Type\CropType
   jb_fileuploader.form.type.crop_image_ajax.class: Jb\Bundle\FileUploaderBundle\Form\Type\CropImageAjaxType
   jb_fileuploader.form.type.file_ajax.class: Jb\Bundle\FileUploaderBundle\Form\Type\FileAjaxType
   jb_fileuploader.form.type.image_ajax.class: Jb\Bundle\FileUploaderBundle\Form\Type\ImageAjaxType
 
 services:
-  jb_fileuploader.form.type.crop: 
+  jb_fileuploader.form.type.crop:
     class: "%jb_fileuploader.form.type.crop.class%"
     tags:
-      - 
+      -
         alias: jb_fileuploader_crop
         name: form.type
-  jb_fileuploader.form.type.crop_image_ajax: 
+
+  jb_fileuploader.form.type.crop_image_ajax:
     class: "%jb_fileuploader.form.type.crop_image_ajax.class%"
     parent: jb_fileuploader.form.type.image_ajax
-    scope: request
-    tags: 
-      - 
+    tags:
+      -
         alias: jb_crop_image_ajax
         name: form.type
-  jb_fileuploader.form.type.file_ajax: 
-    arguments: 
+
+  jb_fileuploader.form.type.file_ajax:
+    arguments:
       - "@jb_fileuploader.file_history.manager"
     class: "%jb_fileuploader.form.type.file_ajax.class%"
-    scope: request
-    tags: 
-      - 
+    tags:
+      -
         alias: jb_file_ajax
         name: form.type
-  jb_fileuploader.form.type.image_ajax: 
+
+  jb_fileuploader.form.type.image_ajax:
     class: "%jb_fileuploader.form.type.image_ajax.class%"
     parent: jb_fileuploader.form.type.file_ajax
-    scope: request
-    tags: 
-      - 
+    tags:
+      -
         alias: jb_image_ajax
         name: form.type

@@ -8,28 +8,23 @@ parameters:
 services:
     jb_fileuploader.resolver.aws3.prototype:
         class: "%jb_fileuploader.resolver.aws3.prototype.class%"
-        scope: request
         abstract: true
 
     jb_fileuploader.resolver.cdn.prototype:
         class: "%jb_fileuploader.resolver.cdn.prototype.class%"
-        scope: request
         abstract: true
 
     jb_fileuploader.resolver.asset.prototype:
         class: "%jb_fileuploader.resolver.asset.prototype.class%"
-        shared: false
         arguments:
             - "@assets.packages"
         abstract: true
 
     jb_fileuploader.resolver.imagine.prototype:
         class: "%jb_fileuploader.resolver.imagine.prototype.class%"
-        scope: request
         arguments:
             - "@liip_imagine.cache.manager"
         abstract: true
 
     jb_fileuploader.resolver_chain:
         class: "%jb_fileuploader.resolver_chain.class%"
-        scope: request
