@@ -13,7 +13,6 @@ namespace Jb\Bundle\FileUploaderBundle\Service;
 use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\SecurityContext;
 use Jb\Bundle\FileUploaderBundle\Service\ResolverChain;
 use Jb\Bundle\FileUploaderBundle\Service\EndpointConfiguration;
 

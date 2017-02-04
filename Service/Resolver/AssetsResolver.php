@@ -10,7 +10,6 @@
 
 namespace Jb\Bundle\FileUploaderBundle\Service\Resolver;
 
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Component\Asset\Packages;
 
 /**
