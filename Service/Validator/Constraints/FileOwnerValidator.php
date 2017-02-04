@@ -52,6 +52,10 @@ class FileOwnerValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
+        if (!$value) {
+            return;
+        }
+
         $fileHistory = $this->em->getRepository('JbFileUploaderBundle:FileHistory')->find($value);
         if (!$fileHistory) {
             return;
