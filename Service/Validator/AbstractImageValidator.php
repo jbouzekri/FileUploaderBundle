@@ -106,7 +106,7 @@ abstract class AbstractImageValidator extends AbstractValidator
         }
 
         if (isset($configuration['MaxRatio']) && $this->validateConfig('MaxRatio', $configuration, true)) {
-            if ($ratio < $configuration['MaxRatio']) {
+            if ($ratio > $configuration['MaxRatio']) {
                 throw new ValidationException('Maximum ratio must be '.$configuration['MaxRatio']);
             }
         }
