@@ -11,7 +11,6 @@
 namespace Jb\Bundle\FileUploaderBundle\Service\Validator;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * AbstractValidator
@@ -23,9 +22,9 @@ abstract class AbstractValidator
     /**
      * Configure the validator
      *
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    protected function configureOptions(OptionsResolverInterface $resolver)
+    protected function configureOptions(OptionsResolver $resolver)
     {
     }
 
@@ -51,6 +50,7 @@ abstract class AbstractValidator
      * Extract the value used in the validator
      *
      * @param mixed $value
+     * @return mixed|string
      */
     protected function formatValue($value)
     {
