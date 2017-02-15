@@ -10,7 +10,7 @@
 
 namespace Jb\Bundle\FileUploaderBundle\Service\Validator;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Jb\Bundle\FileUploaderBundle\Exception\ValidationException;
 
 /**
@@ -23,9 +23,9 @@ abstract class AbstractImageValidator extends AbstractValidator
     /**
      * {@inheritdoc}
      */
-    protected function configureOptions(OptionsResolverInterface $resolver)
+    protected function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setOptional(array(
+        $resolver->setDefined(array(
             'MinWidth',
             'MaxWidth',
             'MinHeight',
