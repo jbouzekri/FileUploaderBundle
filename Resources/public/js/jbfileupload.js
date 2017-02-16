@@ -91,7 +91,7 @@
             /**
              * Fill preview and form hidden field
              *
-             * @param {Object} date
+             * @param {Object} data
              *
              * @returns {undefined}
              */
@@ -122,7 +122,9 @@
                 $resultError.hide();
                 if (typeof data.result.files !== "undefined" && typeof data.result.files[0] !== "undefined" && typeof data.result.files[0].error !== "undefined") {
                     $resultError.show();
-                    $resultError.text(translateMessage(data.result.files[0].error));
+                    var message = translateMessage(data.result.files[0].error);
+                    $resultError.text(message);
+                    $parentTag.trigger('jb.FileUpload.error', [message]);
                     return;
                 }
 
@@ -134,6 +136,7 @@
                 }
 
                 fillResult(data.result);
+                $parentTag.trigger('jb.FileUpload.success', [data.result]);
             }
 
             /**
@@ -146,13 +149,21 @@
              */
             function fileUploadError(e, data) {
                 loadingToggle({});
-                if (typeof e.responseJSON.error !== "undefined" && typeof e.responseJSON.error.message !== "undefined") {
-                    $resultError.show();
-                    $resultError.text(e.responseJSON.error.message);
-                } else if (typeof e.responseJSON[0] !== "undefined" && typeof e.responseJSON[0].message !== "undefined") {
-                    $resultError.show();
-                    $resultError.text(e.responseJSON[0].message);
+                var message = "An Unknown Error Occurred";
+                if (typeof e.responseJSON !== "undefined") {
+                    if (typeof e.responseJSON.error !== "undefined" && typeof e.responseJSON.error.message !== "undefined") {
+                        message = e.responseJSON.error.message;
+                    } else if (typeof e.responseJSON[0] !== "undefined" && typeof e.responseJSON[0].message !== "undefined") {
+                        message = e.responseJSON[0].message;
+                    }
+                } else {
+                    if (typeof e.statusText !== "undefined") {
+                        message = e.statusText;
+                    }
                 }
+                $resultError.show();
+                $resultError.text(message);
+                $parentTag.trigger('jb.FileUpload.error', message);
             }
 
             /**
@@ -199,13 +210,16 @@
                     $resultError.hide();
                     // Fill preview and hidden field
                     fillResult(data);
+                    $parentTag.trigger('jb.FileUpload.success', [data]);
                     // Destroy and hide crop
                     $cropImg.data('Jcrop').destroy();
                     toggleCropingTool();
                 }, 'json').fail(function(data) {
                     if (typeof data.responseJSON !== "undefined" && typeof data.responseJSON.error !== "undefined") {
                         $resultError.show();
-                        $resultError.text(translateMessage(data.responseJSON.error));
+                        var message = translateMessage(data.responseJSON.error);
+                        $resultError.text(message);
+                        $parentTag.trigger('jb.FileUpload.error', [message]);
                     }
                 });
             });
@@ -220,8 +234,9 @@
                     filename: '',
                     originalname: '',
                     filepath: previewData
-                }
-                fillResult(clearResultData)
+                };
+                fillResult(clearResultData);
+                $parentTag.trigger('jb.FileUpload.remove', [clearResultData]);
             });
 
             // Load jquery file upload

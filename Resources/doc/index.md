@@ -23,6 +23,7 @@ Advanced
 
 * [Using amazon S3 for storage](advanced/amazons3.md)
 * [Validate file ownership](advanced/fileowner.md)
+* [Javascript Events](advanced/javascript.md)
 
 Troubleshooting
 ---------------
